@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: rgb(26, 26, 26);
+  --muted-foreground: rgb(89, 89, 89);
+  --border: rgb(230, 230, 230);
+}
+
+@layer base {
+  body {
+    @apply font-inter;
+    color: var(--foreground);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-foreground { color: var(--foreground); }
+  .text-muted-foreground { color: var(--muted-foreground); }
+  .border-border { border-color: var(--border); }
+  .bg-border { background-color: var(--border); }
+  .text-blue { color: #729ACD; }
+  .bg-blue { background-color: #729ACD; }
+  .bg-softblue\/25 { background-color: rgba(185,207,218,0.25); }
+  .bg-sunny\/30 { background-color: rgba(245,220,144,0.30); }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade-in for hero */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
