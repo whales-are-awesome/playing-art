@@ -9,6 +9,7 @@ const members = [
     quote: 'Мне важно дать детям пространство, где они могут свободно проявляться, изобретать и раскрывать свою творческую инициативу.',
     photo: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/ebe3f81d4_.jpg',
     bgColor: '#B9CFDA',
+    dotColor: '#729ACD',
     imgPos: 'center top',
   },
   {
@@ -18,6 +19,7 @@ const members = [
     quote: 'Творчество — это не про «правильно» или «красиво», а про себя, свободу и удовольствие.',
     photo: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/e80abfcf8_.jpg',
     bgColor: '#F5DC90',
+    dotColor: '#c8a800',
     imgPos: 'center top',
   },
   {
@@ -26,68 +28,141 @@ const members = [
     bio: 'Решаю все организационные вопросы, договариваюсь с партнёрами и площадками — чтобы всё прошло гладко для детей и родителей.',
     quote: 'Моя задача — чтобы все детали были на своём месте и ничто не мешало творческому процессу.',
     photo: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/843e77d58_.jpg',
-    bgColor: '#F18C1F22',
+    bgColor: '#FFE0C8',
+    dotColor: '#F18C1F',
     imgPos: 'center top',
   },
 ];
 
 export default function Team() {
   const [index, setIndex] = useState(0);
+  const [fading, setFading] = useState(false);
+  const [dir, setDir] = useState(1);
   const titleRef = useReveal();
   const cardRef = useReveal();
 
-  const prev = () => setIndex((i) => (i - 1 + members.length) % members.length);
-  const next = () => setIndex((i) => (i + 1) % members.length);
+  const switchTo = (newIndex, direction) => {
+    setDir(direction);
+    setFading(true);
+    setTimeout(() => {
+      setIndex(newIndex);
+      setFading(false);
+    }, 220);
+  };
+
+  const prev = () => switchTo((index - 1 + members.length) % members.length, -1);
+  const next = () => switchTo((index + 1) % members.length, 1);
 
   const member = members[index];
 
   return (
-    <section id="team" className="py-20 md:py-28 px-6 md:px-20 bg-[#F8F8F8]">
+    <section id="team" className="py-12 md:py-16 px-6 md:px-14 bg-[#F8F8F8]">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
-          <p className="text-xs font-semibold tracking-[0.25em] uppercase text-blue mb-4">
+
+        {/* Header */}
+        <div className="mb-10">
+          <span
+            className="sticker text-xs tracking-[0.2em] uppercase"
+            style={{ background: '#E56787', color: '#fff', transform: 'rotate(-1deg)', display: 'inline-flex' }}
+          >
             Команда
-          </p>
-          <h2 ref={titleRef} className="reveal text-3xl md:text-5xl font-black">
-            Наша команда
-          </h2>
+          </span>
         </div>
 
+        {/* Card */}
         <div ref={cardRef} className="reveal">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+          <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-stretch">
+
             {/* Photo */}
             <div
-              className="relative rounded-2xl overflow-hidden"
-              style={{ background: member.bgColor, minHeight: '420px' }}
+              className="rounded-2xl overflow-hidden min-h-[280px] md:min-h-[420px]"
+              style={{
+                background: member.bgColor,
+                position: 'relative',
+                outline: `6px solid ${member.bgColor}`,
+                outlineOffset: '4px',
+                transition: 'outline-color 0.5s ease, background 0.5s ease',
+              }}
             >
               <img
                 src={member.photo}
                 alt={member.name}
                 className="w-full h-full object-cover absolute inset-0"
-                style={{ objectPosition: member.imgPos }}
+                style={{
+                  objectPosition: member.imgPos,
+                  opacity: fading ? 0 : 1,
+                  transform: fading ? 'scale(1.04)' : 'scale(1)',
+                  transition: `opacity ${fading ? '0.25s' : '0.5s'} ease, transform ${fading ? '0.25s' : '0.5s'} ease`,
+                }}
                 onError={e => { e.target.style.display = 'none'; }}
               />
             </div>
 
-            {/* Info */}
-            <div>
-              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-blue mb-2">
-                {member.role}
-              </p>
-              <h3 className="text-3xl md:text-4xl font-black mb-6">
-                {member.name}
-              </h3>
-              <p className="text-base text-muted-foreground leading-relaxed mb-6">{member.bio}</p>
-              <blockquote className="border-l-2 border-blue pl-5 text-base md:text-lg font-medium leading-relaxed mb-10">
-                {member.quote}
-              </blockquote>
+            {/* Info — outer wrapper, not animated */}
+            <div className="flex flex-col md:min-h-[442px]">
+              {/* Animated content */}
+              <div
+                style={{
+                  opacity: fading ? 0 : 1,
+                  transform: fading ? `translateX(${dir * 20}px)` : 'translateX(0)',
+                  transition: `opacity ${fading ? '0.2s' : '0.35s'} cubic-bezier(0.22,1,0.36,1), transform ${fading ? '0.2s' : '0.35s'} cubic-bezier(0.22,1,0.36,1)`,
+                }}
+              >
+                {/* Role sticker */}
+                <div className="mb-3">
+                  <span
+                    className="sticker text-xs tracking-[0.15em] uppercase"
+                    style={{
+                      background: member.bgColor,
+                      color: '#1a1a1a',
+                      transform: 'rotate(1deg)',
+                      display: 'inline-flex',
+                      transition: 'background 0.4s ease',
+                    }}
+                  >
+                    {member.role}
+                  </span>
+                </div>
 
-              {/* Controls — under text on all screens */}
-              <div className="flex items-center gap-4">
+                {/* Big name */}
+                <h3
+                  className="font-black mb-6 leading-none"
+                  style={{ fontSize: 'clamp(3rem, 6vw, 5rem)' }}
+                >
+                  {member.name}
+                </h3>
+
+                <p className="text-base text-muted-foreground leading-relaxed mb-6">{member.bio}</p>
+
+                {/* Quote — big, no border */}
+                <p className="text-lg md:text-xl font-semibold leading-snug mb-10" style={{ color: member.dotColor }}>
+                  «{member.quote}»
+                </p>
+              </div>
+
+              {/* Controls — separate, never animated */}
+              <div className="flex items-center gap-5 mt-auto">
                 <button onClick={prev} aria-label="Предыдущий" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6" /></svg>
                 </button>
-                <span className="text-sm text-muted-foreground font-medium">{index + 1} / {members.length}</span>
+
+                {/* Dot indicators */}
+                <div className="flex items-center gap-2">
+                  {members.map((m, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setIndex(i)}
+                      className="rounded-full transition-all duration-300"
+                      style={{
+                        width: i === index ? '24px' : '8px',
+                        height: '8px',
+                        background: i === index ? m.dotColor : '#d0d0d0',
+                      }}
+                      aria-label={m.name}
+                    />
+                  ))}
+                </div>
+
                 <button onClick={next} aria-label="Следующий" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
                 </button>
