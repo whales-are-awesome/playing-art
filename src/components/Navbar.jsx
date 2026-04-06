@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
 const links = [
-  { label: 'О программе', href: '#about' },
-  { label: 'Наш день', href: '#process' },
-  { label: 'Как было', href: '#gallery' },
-  { label: 'Команда', href: '#team' },
-  { label: 'Стоимость', href: '#pricing' },
-  { label: 'Контакты', href: '#contacts' },
+  { label: 'О программе', href: '#about', color: '#729ACD' },
+  { label: 'Наш день', href: '#process', color: '#E56787' },
+  { label: 'Как было', href: '#gallery', color: '#F18C1F' },
+  { label: 'Команда', href: '#team', color: '#B4B534' },
+  { label: 'Стоимость', href: '#pricing', color: '#F5DC90' },
+  { label: 'Контакты', href: '#contacts', color: '#729ACD' },
 ];
 
 export default function Navbar() {
@@ -44,7 +44,7 @@ export default function Navbar() {
               href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:inline-flex items-center px-5 py-2 rounded-full text-xs font-bold tracking-widest uppercase text-white transition-colors hover:opacity-90"
+              className="btn-sticker hidden md:inline-flex items-center px-5 py-2 text-xs tracking-widest uppercase text-white"
               style={{ background: '#729ACD' }}
             >
               Подать заявку
@@ -91,24 +91,40 @@ export default function Navbar() {
           </svg>
         </button>
 
-        <nav className="flex flex-col items-start gap-4 md:gap-6">
+        <nav className="flex flex-col items-start gap-4 md:gap-5 mb-10">
           {links.map((link, i) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-4xl md:text-5xl font-black text-foreground hover:text-blue transition-colors leading-none"
+              className="flex items-center gap-3 text-4xl md:text-5xl font-black text-foreground hover:text-blue transition-colors leading-none"
               style={{
-                transitionDelay: menuOpen ? `${0.05 + i * 0.06}s` : '0s',
                 transform: menuOpen ? 'translateX(0)' : 'translateX(-30px)',
                 opacity: menuOpen ? 1 : 0,
                 transition: `transform 0.4s ease ${0.05 + i * 0.06}s, opacity 0.4s ease ${0.05 + i * 0.06}s`,
               }}
             >
+              <span className="w-2.5 h-2.5 rounded-full shrink-0 mt-1" style={{ background: link.color }} />
               {link.label}
             </a>
           ))}
         </nav>
+
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setMenuOpen(false)}
+          className="btn-sticker px-7 py-3 text-sm tracking-widest uppercase text-white"
+          style={{
+            background: '#729ACD',
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? 'translateX(0)' : 'translateX(-30px)',
+            transition: `transform 0.4s ease ${0.05 + links.length * 0.06}s, opacity 0.4s ease ${0.05 + links.length * 0.06}s`,
+          }}
+        >
+          Подать заявку
+        </a>
       </div>
     </>
   );

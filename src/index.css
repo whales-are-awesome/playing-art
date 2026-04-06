@@ -30,22 +30,115 @@
   .text-blue { color: #729ACD; }
   .bg-blue { background-color: #729ACD; }
   .bg-softblue\/25 { background-color: rgba(185,207,218,0.25); }
+  .bg-softblue\/30 { background-color: rgba(185,207,218,0.30); }
   .bg-sunny\/30 { background-color: rgba(245,220,144,0.30); }
 }
 
 /* Scroll reveal */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(32px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Fade-in for hero */
+/* Hero letter animation */
+@keyframes letterIn {
+  from {
+    opacity: 0;
+    transform: translateY(60%) rotate(-6deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* Floating decoration animation */
+/* Large blobs — big movement */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-55px) rotate(4deg); }
+  66% { transform: translateY(28px) rotate(-3deg); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-75px) rotate(6deg); }
+}
+
+/* Small decorative shapes — subtle movement */
+@keyframes floatTiny {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  40% { transform: translateY(-12px) rotate(5deg); }
+  70% { transform: translateY(6px) rotate(-3deg); }
+}
+
+@keyframes scrollFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+
+/* Sticker tags */
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 14px;
+  border: 2px solid rgba(0,0,0,0.10);
+  box-shadow: 2px 3px 0px rgba(0,0,0,0.10);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+.sticker:hover {
+  transform: rotate(0deg) scale(1.06) !important;
+  box-shadow: 3px 5px 0px rgba(0,0,0,0.13);
+}
+
+/* Sticker-style buttons */
+.btn-sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 100px;
+  font-weight: 700;
+  border: 2px solid rgba(0,0,0,0.10);
+  box-shadow: 2px 2px 0px rgba(0,0,0,0.09);
+  transform: rotate(-1deg);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  cursor: pointer;
+}
+.btn-sticker:hover {
+  transform: rotate(0deg) scale(1.04);
+  box-shadow: 3px 3px 0px rgba(0,0,0,0.11);
+}
+.btn-sticker:active {
+  transform: rotate(0deg) scale(0.98);
+  box-shadow: 1px 1px 0px rgba(0,0,0,0.09);
+}
+
+/* Fade-in for hero subtitle */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #729ACD, #E56787, #F18C1F, #B4B534);
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #5a85be, #d4506f, #d47a18, #9ea02e);
 }

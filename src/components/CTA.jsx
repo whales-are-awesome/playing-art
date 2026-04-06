@@ -29,7 +29,7 @@ export default function CTA() {
             href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 text-white px-10 py-4 rounded-full text-base font-bold tracking-wide hover:opacity-90 transition-all"
+            className="btn-sticker text-white px-10 py-4 text-base tracking-wide"
             style={{ background: '#729ACD' }}
           >
             Подать заявку

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
+import ProgressBar from './components/ProgressBar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Process from './components/Process';
@@ -19,29 +20,35 @@ function BookingBadge() {
   }, []);
 
   return (
-    <a
-      href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-full text-white text-sm font-bold tracking-wide shadow-xl transition-all duration-500"
+    <div
+      className="fixed bottom-6 right-6 z-50"
       style={{
-        background: '#729ACD',
         opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0px)' : 'translateY(20px)',
         pointerEvents: visible ? 'auto' : 'none',
-        transform: visible ? 'translateY(0)' : 'translateY(16px)',
+        transition: 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1)',
       }}
     >
-      Забронировать место
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <polyline points="9 18 15 12 9 6" />
-      </svg>
-    </a>
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-sticker px-5 py-3 text-white text-sm tracking-wide"
+        style={{ background: '#729ACD' }}
+      >
+        Забронировать место
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </a>
+    </div>
   );
 }
 
 function App() {
   return (
     <div style={{ fontFamily: "'Inter', sans-serif" }}>
+      <ProgressBar />
       <Navbar />
       <main>
         <Hero />
