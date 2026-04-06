@@ -54,75 +54,45 @@ export default function Team() {
         </div>
 
         <div ref={cardRef} className="reveal">
-          {/* Card with side arrows on desktop */}
-          <div className="relative md:px-16">
-            {/* Prev arrow — left side (desktop) */}
-            <button
-              onClick={prev}
-              aria-label="Предыдущий"
-              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-border items-center justify-center hover:border-blue transition-colors bg-white z-10 shadow-sm"
+          <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
+            {/* Photo */}
+            <div
+              className="relative rounded-2xl overflow-hidden"
+              style={{ background: member.bgColor, minHeight: '420px' }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-
-            <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-              {/* Photo */}
-              <div
-                className="relative rounded-2xl overflow-hidden"
-                style={{ background: member.bgColor, minHeight: '420px' }}
-              >
-                <img
-                  src={member.photo}
-                  alt={member.name}
-                  className="w-full h-full object-cover absolute inset-0"
-                  style={{ objectPosition: member.imgPos }}
-                  onError={e => { e.target.style.display = 'none'; }}
-                />
-              </div>
-
-              {/* Info */}
-              <div>
-                <p className="text-xs font-semibold tracking-[0.2em] uppercase text-blue mb-2">
-                  {member.role}
-                </p>
-                <h3 className="text-3xl md:text-4xl font-black mb-6">
-                  {member.name}
-                </h3>
-                <p className="text-base text-muted-foreground leading-relaxed mb-6">{member.bio}</p>
-                <blockquote className="border-l-2 border-blue pl-5 text-base md:text-lg font-medium leading-relaxed">
-                  {member.quote}
-                </blockquote>
-
-                {/* Mobile controls */}
-                <div className="flex items-center gap-4 mt-8 md:hidden">
-                  <button onClick={prev} aria-label="Предыдущий" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6" /></svg>
-                  </button>
-                  <span className="text-sm text-muted-foreground font-medium">{index + 1} / {members.length}</span>
-                  <button onClick={next} aria-label="Следующий" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
-                  </button>
-                </div>
-              </div>
+              <img
+                src={member.photo}
+                alt={member.name}
+                className="w-full h-full object-cover absolute inset-0"
+                style={{ objectPosition: member.imgPos }}
+                onError={e => { e.target.style.display = 'none'; }}
+              />
             </div>
 
-            {/* Next arrow — right side (desktop) */}
-            <button
-              onClick={next}
-              aria-label="Следующий"
-              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full border border-border items-center justify-center hover:border-blue transition-colors bg-white z-10 shadow-sm"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
-          </div>
+            {/* Info */}
+            <div>
+              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-blue mb-2">
+                {member.role}
+              </p>
+              <h3 className="text-3xl md:text-4xl font-black mb-6">
+                {member.name}
+              </h3>
+              <p className="text-base text-muted-foreground leading-relaxed mb-6">{member.bio}</p>
+              <blockquote className="border-l-2 border-blue pl-5 text-base md:text-lg font-medium leading-relaxed mb-10">
+                {member.quote}
+              </blockquote>
 
-          {/* Desktop counter */}
-          <div className="hidden md:flex items-center gap-2 mt-8 md:px-16">
-            <span className="text-sm text-muted-foreground font-medium">{index + 1} / {members.length}</span>
+              {/* Controls — under text on all screens */}
+              <div className="flex items-center gap-4">
+                <button onClick={prev} aria-label="Предыдущий" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6" /></svg>
+                </button>
+                <span className="text-sm text-muted-foreground font-medium">{index + 1} / {members.length}</span>
+                <button onClick={next} aria-label="Следующий" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

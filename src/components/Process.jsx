@@ -1,11 +1,11 @@
 import { useReveal } from '../hooks/useReveal';
 
 const steps = [
-  { num: '01', title: 'Погружение', desc: 'Знакомство с художником дня — его идеями, приёмами и историей', color: '#729ACD' },
-  { num: '02', title: 'Диалог', desc: 'Обсуждение работ: каждый высказывается, каждое мнение ценно', color: '#E56787' },
-  { num: '03', title: 'Практика', desc: 'Акварель, акрил, коллаж, инсталляция — свобода выбора', color: '#F18C1F' },
-  { num: '04', title: 'Команда', desc: 'Активные игры и совместные проекты', color: '#B4B534' },
-  { num: '05', title: 'Выставка', desc: 'Каждый день — шаг к финальной экспозиции авторских работ', color: '#F5DC90' },
+  { num: '01', title: 'Погружение', desc: 'Знакомство с художником дня — его идеями, приёмами и историей', color: '#729ACD', bg: 'rgba(114,154,205,0.12)' },
+  { num: '02', title: 'Диалог', desc: 'Обсуждение работ: каждый высказывается, каждое мнение ценно', color: '#E56787', bg: 'rgba(229,103,135,0.12)' },
+  { num: '03', title: 'Практика', desc: 'Акварель, акрил, коллаж, инсталляция — свобода выбора', color: '#F18C1F', bg: 'rgba(241,140,31,0.12)' },
+  { num: '04', title: 'Команда', desc: 'Активные игры и совместные проекты', color: '#B4B534', bg: 'rgba(180,181,52,0.12)' },
+  { num: '05', title: 'Выставка', desc: 'Каждый день — шаг к финальной экспозиции авторских работ', color: '#F5DC90', bg: 'rgba(245,220,144,0.25)' },
 ];
 
 export default function Process() {
@@ -24,27 +24,23 @@ export default function Process() {
           </h2>
         </div>
 
-        <div ref={gridRef} className="reveal relative">
-          {/* Horizontal connector line (desktop only) */}
-          <div className="hidden md:block absolute top-8 left-0 right-0 h-px bg-border" />
-
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-0 md:gap-0">
+        <div ref={gridRef} className="reveal">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-3">
             {steps.map((step, i) => (
-              <div key={i} className="relative flex md:flex-col items-start md:items-start gap-5 md:gap-0 pb-8 md:pb-0 md:pr-6">
-                {/* Vertical connector line (mobile only) */}
-                {i < steps.length - 1 && (
-                  <div className="md:hidden absolute left-4 top-10 w-px bg-border" style={{ height: 'calc(100% - 2rem)' }} />
-                )}
-
+              <div
+                key={i}
+                className="rounded-2xl p-5 md:p-6 flex md:flex-col items-start gap-4 md:gap-0"
+                style={{ background: step.bg }}
+              >
                 {/* Circle */}
                 <div
-                  className="relative z-10 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shrink-0"
+                  className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shrink-0 md:mb-5"
                   style={{ background: step.color }}
                 >
-                  <span className="text-white text-[10px] md:text-xs font-bold">{step.num}</span>
+                  <span className="text-white text-xs md:text-sm font-black">{step.num}</span>
                 </div>
 
-                <div className="pt-0.5">
+                <div>
                   <h3 className="text-base md:text-lg font-black mb-1 md:mb-2">{step.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
                 </div>

@@ -1,5 +1,14 @@
 import { useState, useEffect } from 'react';
 
+const links = [
+  { label: 'О программе', href: '#about' },
+  { label: 'Наш день', href: '#process' },
+  { label: 'Как было', href: '#gallery' },
+  { label: 'Команда', href: '#team' },
+  { label: 'Стоимость', href: '#pricing' },
+  { label: 'Контакты', href: '#contacts' },
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,70 +19,97 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // lock body scroll when menu open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-white/90 backdrop-blur-md shadow-sm'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="w-full px-6 md:px-10 lg:px-14 flex items-center justify-between h-16 md:h-[72px]">
-        <a href="#" className="text-sm md:text-[13px] font-extrabold tracking-[0.18em] uppercase text-foreground">
-          Играем в искусство
-        </a>
-
-        <div className="flex items-center gap-3">
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center px-6 py-2.5 rounded-full text-[11px] font-bold tracking-widest uppercase text-white transition-all duration-300 hover:opacity-90"
-            style={{ background: '#729ACD' }}
-          >
-            Подать заявку
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? 'bg-white/80 backdrop-blur-lg border-b border-border/50'
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-14 md:h-16">
+          <a href="#" className="text-sm font-bold tracking-[0.15em] uppercase text-foreground">
+            Играем в искусство
           </a>
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-black/5 transition-colors cursor-pointer"
-            aria-label="Open menu"
-          >
-            <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-              <line x1="0" y1="1" x2="20" y2="1" />
-              <line x1="0" y1="7" x2="20" y2="7" />
-              <line x1="0" y1="13" x2="20" y2="13" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex items-center px-5 py-2 rounded-full text-xs font-bold tracking-widest uppercase text-white transition-colors hover:opacity-90"
+              style={{ background: '#729ACD' }}
+            >
+              Подать заявку
+            </a>
+
+            <button
+              onClick={() => setMenuOpen(true)}
+              className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-softblue/30 transition-colors cursor-pointer"
+              aria-label="Open menu"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+          </div>
         </div>
+      </header>
+
+      {/* Fullscreen overlay */}
+      <div
+        className={`fixed inset-0 z-[100] flex flex-col items-start justify-center px-10 md:px-20 transition-all duration-500 ${
+          menuOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
+        style={{
+          background: 'rgba(185,207,218,0.97)',
+          backdropFilter: 'blur(24px)',
+          clipPath: menuOpen ? 'inset(0 0 0% 0)' : 'inset(0 0 100% 0)',
+          transition: 'clip-path 0.5s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.5s ease',
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={() => setMenuOpen(false)}
+          className="absolute top-5 right-6 w-10 h-10 flex items-center justify-center hover:opacity-60 transition-opacity cursor-pointer"
+          aria-label="Close menu"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
+        <nav className="flex flex-col items-start gap-4 md:gap-6">
+          {links.map((link, i) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="text-4xl md:text-5xl font-black text-foreground hover:text-blue transition-colors leading-none"
+              style={{
+                transitionDelay: menuOpen ? `${0.05 + i * 0.06}s` : '0s',
+                transform: menuOpen ? 'translateX(0)' : 'translateX(-30px)',
+                opacity: menuOpen ? 1 : 0,
+                transition: `transform 0.4s ease ${0.05 + i * 0.06}s, opacity 0.4s ease ${0.05 + i * 0.06}s`,
+              }}
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
       </div>
-
-      {menuOpen && (
-        <div className="bg-white/98 backdrop-blur border-t border-gray-100 px-6 py-6 flex flex-col gap-4">
-          {['#about', '#process', '#gallery', '#team', '#pricing', '#contacts'].map((href, i) => {
-            const labels = ['О программе', 'Наш день', 'Как было', 'Команда', 'Стоимость', 'Контакты'];
-            return (
-              <a
-                key={href}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                className="text-sm font-medium text-gray-700 hover:text-[#729ACD] transition-colors"
-              >
-                {labels[i]}
-              </a>
-            );
-          })}
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-5 py-2.5 rounded-full text-[11px] font-bold tracking-widest uppercase text-white w-fit mt-2"
-            style={{ background: '#729ACD' }}
-          >
-            Подать заявку
-          </a>
-        </div>
-      )}
-    </header>
+    </>
   );
 }

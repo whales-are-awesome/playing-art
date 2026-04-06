@@ -3,10 +3,16 @@ export default function Hero() {
     <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-14 overflow-hidden bg-white">
       {/* Decorative blobs */}
       <div
-        className="absolute top-1/4 right-8 md:right-24 w-48 md:w-72 h-48 md:h-72 rounded-full bg-softblue/25 blur-3xl pointer-events-none"
+        className="absolute top-1/4 right-8 md:right-24 w-64 md:w-96 h-64 md:h-96 rounded-full blur-3xl pointer-events-none"
+        style={{ background: 'rgba(114,154,205,0.45)' }}
       />
       <div
-        className="absolute bottom-1/3 left-0 w-40 md:w-56 h-40 md:h-56 rounded-full bg-sunny/30 blur-3xl pointer-events-none"
+        className="absolute bottom-1/3 left-0 w-52 md:w-72 h-52 md:h-72 rounded-full blur-3xl pointer-events-none"
+        style={{ background: 'rgba(245,220,144,0.50)' }}
+      />
+      <div
+        className="absolute top-2/3 right-1/3 w-40 md:w-60 h-40 md:h-60 rounded-full blur-3xl pointer-events-none"
+        style={{ background: 'rgba(229,103,135,0.35)' }}
       />
 
       {/* Content */}
@@ -20,11 +26,14 @@ export default function Hero() {
           <span className="text-blue">в искусство</span>
         </h1>
 
-        <div className="mt-10 md:mt-14 flex flex-wrap gap-x-8 gap-y-3">
-          <span className="text-base md:text-lg font-medium text-muted-foreground">15–26 июня</span>
-          <span className="text-base md:text-lg font-medium text-muted-foreground">·&nbsp;Ереван</span>
-          <span className="text-base md:text-lg font-medium text-muted-foreground">·&nbsp;10:00–14:00</span>
-          <span className="text-base md:text-lg font-medium text-muted-foreground">·&nbsp;Дети 7–13 лет</span>
+        <div className="mt-10 md:mt-14 flex flex-wrap items-center gap-y-3">
+          <span className="text-base md:text-lg font-semibold text-foreground">15–26 июня</span>
+          <span className="mx-3 md:mx-4 w-1.5 h-1.5 rounded-full inline-block shrink-0" style={{ background: '#E56787' }} />
+          <span className="text-base md:text-lg font-medium text-muted-foreground">Ереван</span>
+          <span className="mx-3 md:mx-4 w-1.5 h-1.5 rounded-full inline-block shrink-0" style={{ background: '#F18C1F' }} />
+          <span className="text-base md:text-lg font-medium text-muted-foreground">10:00–14:00</span>
+          <span className="mx-3 md:mx-4 w-1.5 h-1.5 rounded-full inline-block shrink-0" style={{ background: '#B4B534' }} />
+          <span className="text-base md:text-lg font-medium text-muted-foreground">Дети 7–13 лет</span>
         </div>
       </div>
 
