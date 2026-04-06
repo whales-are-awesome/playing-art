@@ -38,8 +38,8 @@ export default function About() {
 
           {/* Editorial heading */}
           <h2 ref={r1} className="reveal text-4xl md:text-6xl lg:text-7xl font-black leading-[1.0] tracking-tight">
-            Это больше,<br />
-            <span style={{ color: '#E56787' }}>чем</span>
+            Это <span style={{ color: '#E56787' }}>больше</span>,<br />
+              чем
             {' '}кружок рисования
           </h2>
         </div>
@@ -91,7 +91,7 @@ export default function About() {
                 <img
                   src="https://media.base44.com/images/public/69c774076c93ae569fec24ce/fddb28445_.jpg"
                   alt="Дети на занятии"
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                   onError={e => { e.target.style.display = 'none'; }}
                 />
               </div>
