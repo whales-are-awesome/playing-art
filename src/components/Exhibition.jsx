@@ -18,28 +18,28 @@ export default function Exhibition() {
           <div ref={imgRef} className="reveal grid gap-3 md:gap-4" style={{ gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto' }}>
             <div className="rounded-2xl overflow-hidden" style={{ gridArea: '1 / 1 / 3' }}>
               <img
-                src="https://images.unsplash.com/photo-1580196969807-cc6de06c05be?w=700&q=80"
+                src="https://media.base44.com/images/public/69c774076c93ae569fec24ce/afb547c3c_.jpg"
                 alt="Дети у своей картины на выставке"
                 className="w-full h-full object-cover"
-                style={{ minHeight: '280px' }}
+                style={{ minHeight: '280px', objectPosition: 'center 20%' }}
                 onError={e => { e.target.style.display = 'none'; }}
               />
             </div>
             <div className="rounded-2xl overflow-hidden" style={{ gridArea: '1 / 2' }}>
               <img
-                src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&q=80"
+                src="https://media.base44.com/images/public/69c774076c93ae569fec24ce/0d5cac379_.jpg"
                 alt="Посетители рассматривают работы"
                 className="w-full h-full object-cover"
-                style={{ minHeight: '130px' }}
+                style={{ minHeight: '130px', objectPosition: 'center 60%' }}
                 onError={e => { e.target.style.display = 'none'; }}
               />
             </div>
             <div className="rounded-2xl overflow-hidden" style={{ gridArea: '2 / 2' }}>
               <img
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80"
+                src="https://media.base44.com/images/public/69c774076c93ae569fec24ce/5df452749_1.jpg"
                 alt="Ребёнок с папой смотрит на картину"
                 className="w-full h-full object-cover"
-                style={{ minHeight: '130px' }}
+                style={{ minHeight: '130px', objectPosition: 'center 30%' }}
                 onError={e => { e.target.style.display = 'none'; }}
               />
             </div>

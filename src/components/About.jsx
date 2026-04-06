@@ -1,10 +1,10 @@
 import { useReveal } from '../hooks/useReveal';
 
 const benefits = [
-  'Смелость ошибаться',
-  'Умение придумывать',
-  'Навык презентовать',
-  'Уверенность в идеях',
+  { label: 'Смелость ошибаться', hex: '#729ACD' },
+  { label: 'Умение придумывать', hex: '#E56787' },
+  { label: 'Навык презентовать', hex: '#F18C1F' },
+  { label: 'Уверенность в идеях', hex: '#B4B534' },
 ];
 
 const listItems = [
@@ -59,9 +59,9 @@ export default function About() {
 
           {/* Right: image + benefits */}
           <div>
-            <div ref={r3} className="reveal rounded-2xl overflow-hidden mb-6">
+            <div ref={r3} className="reveal rounded-2xl overflow-hidden mb-6" style={{ aspectRatio: '4/3' }}>
               <img
-                src="https://images.unsplash.com/photo-1607453998774-d533f65dac99?w=800&q=80"
+                src="https://media.base44.com/images/public/69c774076c93ae569fec24ce/fddb28445_.jpg"
                 alt="Дети на занятии"
                 className="w-full h-full object-cover object-top"
                 onError={e => { e.target.style.display = 'none'; }}
@@ -74,8 +74,8 @@ export default function About() {
               </p>
               <div className="grid grid-cols-2 gap-2">
                 {benefits.map((b, i) => (
-                  <div key={i} className="rounded-xl px-4 py-3 border border-border bg-white">
-                    <span className="text-sm font-semibold">{b}</span>
+                  <div key={i} className="rounded-xl px-4 py-3 border border-border bg-white" style={{ borderLeft: `3px solid ${b.hex}` }}>
+                    <span className="text-sm font-semibold">{b.label}</span>
                   </div>
                 ))}
               </div>
