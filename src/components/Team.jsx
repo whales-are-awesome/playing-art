@@ -112,7 +112,7 @@ export default function Team() {
                 {/* Role sticker */}
                 <div className="mb-3 w-fit">
                   <span
-                    className="sticker text-xs tracking-[0.15em] uppercase"
+                    className="sticker tracking-[0.15em] uppercase"
                     style={{
                       background: member.bgColor,
                       color: '#1a1a1a',
@@ -121,7 +121,10 @@ export default function Team() {
                       transition: 'background 0.4s ease',
                     }}
                   >
-                    {member.role}
+                      <span className="text-[12px] sm:text-xs">
+                           {member.role}
+                      </span>
+
                   </span>
                 </div>
 

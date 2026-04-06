@@ -120,6 +120,7 @@ export default function Process() {
                   <p className="text-[13px] font-medium text-muted-foreground leading-relaxed pr-4">{step.desc}</p>
                 </div>
 
+
                 {i < steps.length - 1 && (
                   <div
                     className="flex items-center pt-5 shrink-0"
