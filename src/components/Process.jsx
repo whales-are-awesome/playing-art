@@ -10,8 +10,8 @@ const steps = [
 
 const caption = [
   { text: '4 часа', size: 'text-5xl md:text-7xl', weight: 'font-bold', charColors: ['#F18C1F', null, '#729ACD', '#729ACD', '#729ACD', '#729ACD'] },
-  { text: 'которые меняют то', size: 'text-2xl md:text-3xl', weight: 'font-medium', color: '#1a1a1a' },
-  { text: 'как ребёнок смотрит на мир', size: 'text-lg md:text-2xl', weight: 'font-medium', color: '#595959' },
+  { text: 'которые меняют', size: 'text-2xl md:text-3xl', weight: 'font-medium', color: '#1a1a1a' },
+  { text: 'взгляд ребёнка на мир', size: 'text-lg md:text-2xl', weight: 'font-medium', color: '#595959' },
 ];
 
 function useInView(threshold = 0.2) {
