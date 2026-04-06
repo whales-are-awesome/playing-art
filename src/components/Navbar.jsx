@@ -35,11 +35,11 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-14 md:h-16">
-          <a href="#" className="text-sm font-bold tracking-[0.15em] uppercase text-foreground">
+          <a href="#" className="hidden md:block text-sm font-bold tracking-[0.15em] uppercase text-foreground">
             Играем в искусство
           </a>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full sm:w-auto sm:ml-auto">
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
               target="_blank"
@@ -52,7 +52,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setMenuOpen(true)}
-              className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-softblue/30 transition-colors cursor-pointer"
+              className="w-9 h-9 ml-auto sm:ml-0 flex items-center justify-center rounded-full hover:bg-softblue/30 transition-colors cursor-pointer"
               aria-label="Open menu"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -97,7 +97,7 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-3 text-4xl md:text-5xl font-black text-foreground hover:text-blue transition-colors leading-none"
+              className="flex items-center gap-3 text-3xl md:text-5xl font-black text-foreground hover:text-blue transition-colors leading-none"
               style={{
                 transform: menuOpen ? 'translateX(0)' : 'translateX(-30px)',
                 opacity: menuOpen ? 1 : 0,
@@ -108,22 +108,6 @@ export default function Navbar() {
             </a>
           ))}
         </nav>
-
-        <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLScT4j-pI-We8oZfWggw2dByhtiyJW1ATWSBrTBfvrOwcuNZWA/viewform?usp=preview"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => setMenuOpen(false)}
-          className="btn-sticker px-7 py-3 text-sm tracking-widest uppercase text-white"
-          style={{
-            background: '#729ACD',
-            opacity: menuOpen ? 1 : 0,
-            transform: menuOpen ? 'translateX(0)' : 'translateX(-30px)',
-            transition: `transform 0.4s ease ${0.05 + links.length * 0.06}s, opacity 0.4s ease ${0.05 + links.length * 0.06}s`,
-          }}
-        >
-          Подать заявку
-        </a>
       </div>
     </>
   );

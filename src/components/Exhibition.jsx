@@ -9,7 +9,7 @@ const items = [
 const photos = [
   { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/afb547c3c_.jpg', alt: 'Дети у своей картины на выставке', pos: 'center 20%', rotate: '-2.5deg', gridArea: '1 / 1 / 3 / 2' },
   { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/0d5cac379_.jpg', alt: 'Посетители рассматривают работы', pos: 'center 60%', rotate: '2deg', gridArea: '1 / 2 / 2 / 3' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/5df452749_1.jpg', alt: 'Ребёнок с папой смотрит на картину', pos: 'center 30%', rotate: '-1.5deg', gridArea: '2 / 2 / 3 / 3' },
+  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/5df452749_1.jpg', alt: 'Ребёнок с папой смотрит на картину', pos: 'center 42%', rotate: '-1.5deg', gridArea: '2 / 2 / 3 / 3' },
 ];
 
 export default function Exhibition() {
@@ -18,14 +18,14 @@ export default function Exhibition() {
 
   return (
     <section className="py-20 md:py-28 px-6 md:px-14 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+      <div style={{ maxWidth: '74rem' }} className="mx-auto">
         <div className="grid md:grid-cols-2 gap-16 md:gap-20 items-center">
 
           {/* Polaroid photos */}
           <div ref={imgRef} className="reveal">
             <div
               className="grid gap-3"
-              style={{ gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto' }}
+              style={{ gridTemplateColumns: '1fr 1fr', gridTemplateRows: '200px 200px' }}
             >
               {photos.map((p, i) => (
                 <div
@@ -54,8 +54,8 @@ export default function Exhibition() {
                     alt={p.alt}
                     style={{
                       width: '100%',
-                      height: i === 0 ? '100%' : '140px',
-                      minHeight: i === 0 ? '260px' : 'auto',
+                      height: i === 0 ? '100%' : '100%',
+                      minHeight: i === 0 ? '400px' : 'auto',
                       objectFit: 'cover',
                       objectPosition: p.pos,
                       display: 'block',

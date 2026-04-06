@@ -57,15 +57,15 @@ export default function Hero() {
       {/* Background blobs — animated */}
       <div
         className="absolute top-1/4 right-8 md:right-24 w-64 md:w-96 h-64 md:h-96 rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'rgba(114,154,205,0.40)', animation: 'floatSlow 9s ease-in-out infinite' }}
+        style={{ background: 'rgba(114,154,205,0.40)', animation: 'floatSlow 6s ease-in-out infinite' }}
       />
       <div
         className="absolute bottom-1/3 left-0 w-52 md:w-72 h-52 md:h-72 rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'rgba(245,220,144,0.45)', animation: 'floatY 11s ease-in-out infinite', animationDelay: '2s' }}
+        style={{ background: 'rgba(245,220,144,0.45)', animation: 'floatY 7s ease-in-out infinite', animationDelay: '2s' }}
       />
       <div
         className="absolute top-2/3 right-1/3 w-40 md:w-56 h-40 md:h-56 rounded-full blur-3xl pointer-events-none"
-        style={{ background: 'rgba(229,103,135,0.30)', animation: 'floatSlow 7s ease-in-out infinite', animationDelay: '1s' }}
+        style={{ background: 'rgba(229,103,135,0.30)', animation: 'floatSlow 5s ease-in-out infinite', animationDelay: '1s' }}
       />
 
       {/* Floating shapes */}
@@ -84,7 +84,7 @@ export default function Hero() {
           Детский арт-интенсив
         </p>
 
-        <h1 className="font-inter text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black leading-[0.9] tracking-tight text-foreground">
+        <h1 className="font-inter text-[40px] sm:text-6xl md:text-8xl lg:text-9xl font-black leading-[0.9] tracking-tight text-foreground">
           {/* Animated letters */}
           <span className="inline-block overflow-hidden" style={{ verticalAlign: 'bottom' }}>
             {word.split('').map((letter, i) => (
@@ -103,7 +103,7 @@ export default function Hero() {
           </span>
           <br />
           <span
-            className="text-blue inline-block"
+            className="text-blue inline-block whitespace-nowrap"
             style={{ animation: 'fadeInUp 0.7s ease both', animationDelay: '0.65s', opacity: 0 }}
           >
             в искусство

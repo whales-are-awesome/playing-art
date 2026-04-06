@@ -10,7 +10,7 @@ const members = [
     photo: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/ebe3f81d4_.jpg',
     bgColor: '#B9CFDA',
     dotColor: '#729ACD',
-    imgPos: 'center top',
+    imgPos: '0 60%',
   },
   {
     name: 'Валерия',
@@ -20,7 +20,7 @@ const members = [
     photo: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/e80abfcf8_.jpg',
     bgColor: '#F5DC90',
     dotColor: '#c8a800',
-    imgPos: 'center top',
+      imgPos: '0 60%',
   },
   {
     name: 'Ксения',
@@ -30,7 +30,7 @@ const members = [
     photo: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/843e77d58_.jpg',
     bgColor: '#FFE0C8',
     dotColor: '#F18C1F',
-    imgPos: 'center top',
+    imgPos: '0 80%',
   },
 ];
 
@@ -109,7 +109,7 @@ export default function Team() {
                 }}
               >
                 {/* Role sticker */}
-                <div className="mb-3">
+                <div className="mb-3 w-fit">
                   <span
                     className="sticker text-xs tracking-[0.15em] uppercase"
                     style={{
