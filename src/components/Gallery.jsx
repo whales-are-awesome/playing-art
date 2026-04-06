@@ -1,53 +1,125 @@
+import { useEffect, useRef, useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 
 const photos = [
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/479cc02c2_.jpg', alt: 'Дети рисуют большой холст на улице', gridColumn: '1', gridRow: '1 / 3', pos: 'center 30%' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/5f395ed5a_.jpg', alt: 'Яркая абстрактная картина, созданная детьми', gridColumn: '2', gridRow: '1', pos: 'center center' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/0100fc3a5_.jpg', alt: 'Руки ребёнка с краской', gridColumn: '2', gridRow: '2', pos: 'center 40%' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/25da8d595_.jpg', alt: 'Дети работают вместе в студии', gridColumn: '3', gridRow: '1', pos: 'center 20%' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/0070e06f2_.jpg', alt: 'Дети рисуют акварелью на улице', gridColumn: '3', gridRow: '2', pos: 'center 25%' },
+  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/479cc02c2_.jpg', alt: 'Дети рисуют большой холст на улице', rotate: '-2deg', gridArea: '1 / 1 / 3 / 2', pos: 'center 30%' },
+  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/5f395ed5a_.jpg', alt: 'Яркая абстрактная картина', rotate: '2.5deg', gridArea: '1 / 2 / 2 / 3', pos: 'center center' },
+  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/0100fc3a5_.jpg', alt: 'Руки ребёнка с краской', rotate: '-2deg', gridArea: '2 / 2 / 3 / 3', pos: 'center 40%' },
+  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/25da8d595_.jpg', alt: 'Дети работают вместе в студии', rotate: '1.5deg', gridArea: '1 / 3 / 2 / 4', pos: 'center 20%' },
+  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/0070e06f2_.jpg', alt: 'Дети рисуют акварелью на улице', rotate: '-3deg', gridArea: '2 / 3 / 3 / 4', pos: 'center 25%' },
 ];
 
+function useInView(threshold = 0.1) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, visible];
+}
+
+function PolaroidPhoto({ photo, index, visible, height = '100%' }) {
+  const delay = index * 0.09;
+  return (
+    <div
+      style={{
+        height: '100%',
+        background: 'white',
+        padding: index === 0 ? '7px 7px 24px 7px' : '6px 6px 20px 6px',
+        boxShadow: '3px 6px 18px rgba(0,0,0,0.11)',
+        opacity: visible ? 1 : 0,
+        transform: visible ? `rotate(${photo.rotate})` : `rotate(${photo.rotate}) translateY(28px)`,
+        transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, box-shadow 0.3s ease`,
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+        e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)';
+        e.currentTarget.style.boxShadow = '6px 14px 30px rgba(0,0,0,0.15)';
+        e.currentTarget.style.zIndex = '10';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+        e.currentTarget.style.transform = `rotate(${photo.rotate})`;
+        e.currentTarget.style.boxShadow = '3px 6px 18px rgba(0,0,0,0.11)';
+        e.currentTarget.style.zIndex = 'auto';
+      }}
+    >
+      <img
+        src={photo.src}
+        alt={photo.alt}
+        style={{
+          width: '100%',
+          height,
+          minHeight: height === '100%' ? '100%' : undefined,
+          objectFit: 'cover',
+          objectPosition: photo.pos,
+          display: 'block',
+        }}
+        onError={e => { e.target.style.display = 'none'; }}
+      />
+    </div>
+  );
+}
+
 export default function Gallery() {
+  const [containerRef, visible] = useInView(0.1);
   const titleRef = useReveal();
-  const gridRef = useReveal();
 
   return (
-    <section id="gallery" className="py-20 md:py-28 px-6 md:px-14">
+    <section id="gallery" className="py-20 md:py-28 px-6 md:px-14 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-10 md:mb-12">
-          <p className="text-xs font-semibold tracking-[0.25em] uppercase text-blue mb-4">
-            Как было
-          </p>
-          <h2 ref={titleRef} className="reveal text-3xl md:text-5xl font-black">
-            В прошлом году
+
+        {/* Header */}
+        <div className="mb-10 md:mb-14">
+          <div className="mb-5">
+            <span
+              className="sticker text-xs tracking-[0.2em] uppercase"
+              style={{ background: '#FFE0C8', color: '#1a1a1a', transform: 'rotate(1.5deg)', display: 'inline-flex' }}
+            >
+              Как было
+            </span>
+          </div>
+          <h2 ref={titleRef} className="reveal font-black">
+            <span className="block text-3xl md:text-4xl text-foreground" style={{ lineHeight: 1, marginBottom: '-4px' }}>В прошлом</span>
+            <span className="block text-5xl md:text-7xl" style={{ color: '#F18C1F', lineHeight: 1 }}>году</span>
           </h2>
         </div>
 
-        <div
-          ref={gridRef}
-          className="reveal grid gap-3 md:gap-4"
-          style={{
-            gridTemplateColumns: '2fr 1fr 1fr',
-            gridTemplateRows: '260px 260px',
-          }}
-        >
-          {photos.map((photo, i) => (
-            <div
-              key={i}
-              className="rounded-2xl overflow-hidden"
-              style={{ gridColumn: photo.gridColumn, gridRow: photo.gridRow }}
-            >
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                className="w-full h-full object-cover"
-                style={{ objectPosition: photo.pos }}
-                onError={e => { e.target.style.display = 'none'; }}
-              />
-            </div>
-          ))}
+        <div ref={containerRef}>
+          {/* Desktop grid */}
+          <div
+            className="hidden md:grid gap-4"
+            style={{ gridTemplateColumns: '2fr 1fr 1fr', gridTemplateRows: '240px 240px' }}
+          >
+            {photos.map((photo, i) => (
+              <div key={i} style={{ gridArea: photo.gridArea, position: 'relative' }}>
+                <PolaroidPhoto photo={photo} index={i} visible={visible} height="100%" />
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile grid */}
+          <div className="grid md:hidden grid-cols-2 gap-3">
+            {photos.map((photo, i) => (
+              <div key={i} className={i === 0 ? 'col-span-2' : ''}>
+                <PolaroidPhoto
+                  photo={photo}
+                  index={i}
+                  visible={visible}
+                  height={i === 0 ? '220px' : '150px'}
+                />
+              </div>
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   );

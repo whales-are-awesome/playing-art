@@ -104,7 +104,6 @@ export default function Navbar() {
                 transition: `transform 0.4s ease ${0.05 + i * 0.06}s, opacity 0.4s ease ${0.05 + i * 0.06}s`,
               }}
             >
-              <span className="w-2.5 h-2.5 rounded-full shrink-0 mt-1" style={{ background: link.color }} />
               {link.label}
             </a>
           ))}

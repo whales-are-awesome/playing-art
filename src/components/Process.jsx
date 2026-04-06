@@ -117,7 +117,7 @@ export default function Process() {
                     {step.num}
                   </span>
                   <h3 className="text-base font-black mb-2" style={{ color: step.color }}>{step.title}</h3>
-                  <p className="text-xs font-medium text-muted-foreground leading-relaxed pr-4">{step.desc}</p>
+                  <p className="text-[13px] font-medium text-muted-foreground leading-relaxed pr-4">{step.desc}</p>
                 </div>
 
                 {i < steps.length - 1 && (

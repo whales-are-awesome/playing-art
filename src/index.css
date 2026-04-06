@@ -136,9 +136,9 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #729ACD, #E56787, #F18C1F, #B4B534);
+  background: #729ACD;
   border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #5a85be, #d4506f, #d47a18, #9ea02e);
+  background: #5a85be;
 }
