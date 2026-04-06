@@ -19,7 +19,7 @@ export default function Exhibition() {
   return (
     <section className="py-20 md:py-28 px-6 md:px-14 overflow-hidden">
       <div style={{ maxWidth: '74rem' }} className="mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 md:gap-20 items-center">
+        <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-16 md:gap-20 items-center">
 
           {/* Polaroid photos */}
           <div ref={imgRef} className="reveal">
