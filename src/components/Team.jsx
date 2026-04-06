@@ -12,6 +12,7 @@ const members = [
     dotColor: '#729ACD',
     imgPos: '0 60%',
   },
+
   {
     name: 'Валерия',
     role: 'Автор идеи и методист',
