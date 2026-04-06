@@ -16,7 +16,7 @@ export default function ProgressBar() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[200] h-[3px] pointer-events-none">
+    <div className="hidden sm:visible fixed top-0 left-0 right-0 z-[200] h-[3px] pointer-events-none">
       <div
         ref={barRef}
         style={{
