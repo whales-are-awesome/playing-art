@@ -175,7 +175,7 @@ export default function CTA() {
           <div className="flex flex-col justify-between p-10 md:p-14 bg-white">
             <div>
               <h2 className="font-black mb-8" style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
-                Забронируй<br />
+                Забронируйте<br />
                 <span style={{ color: '#729ACD' }}>место</span>
               </h2>
 
