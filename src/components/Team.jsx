@@ -71,7 +71,18 @@ export default function Team() {
   const member = members[index];
 
   return (
-    <section id="team" className="py-12 md:py-16 px-6 md:px-14 bg-[#F8F8F8]">
+    <section id="team" className="py-12 md:py-16 px-6 md:px-14 bg-[#F8F8F8] relative overflow-hidden">
+      {/* Floating shapes */}
+      <div className="absolute top-10 right-12 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 6s ease-in-out infinite', animationDelay: '0.7s' }}>
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#F5DC90" fillOpacity="0.6"/></svg>
+      </div>
+      <div className="absolute bottom-16 left-10 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 7.5s ease-in-out infinite', animationDelay: '2s' }}>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><polygon points="10,1 12,7.5 19,7.5 13.5,12 15.5,18.5 10,14 4.5,18.5 6.5,12 1,7.5 8,7.5" fill="#E56787" fillOpacity="0.5"/></svg>
+      </div>
+      <div className="absolute top-1/2 left-1/4 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 5s ease-in-out infinite', animationDelay: '1.2s' }}>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="3" fill="#729ACD" fillOpacity="0.45" transform="rotate(18 8 8)"/></svg>
+      </div>
+
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}

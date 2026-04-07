@@ -29,6 +29,20 @@ export default function About() {
       <div className="absolute bottom-10 left-0 w-64 h-64 rounded-full blur-3xl pointer-events-none opacity-40 hidden md:block"
         style={{ background: 'rgba(245,220,144,0.35)', animation: 'floatY 11s ease-in-out infinite', animationDelay: '3s' }} />
 
+      {/* Floating shapes */}
+      <div className="absolute top-16 left-[18%] pointer-events-none hidden md:block" style={{ animation: 'floatTiny 6s ease-in-out infinite', animationDelay: '0.4s' }}>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><polygon points="10,1 12,7.5 19,7.5 13.5,12 15.5,18.5 10,14 4.5,18.5 6.5,12 1,7.5 8,7.5" fill="#729ACD" fillOpacity="0.55"/></svg>
+      </div>
+      <div className="absolute top-1/3 right-10 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 7s ease-in-out infinite', animationDelay: '1.8s' }}>
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="3" width="22" height="22" rx="4" fill="#F18C1F" fillOpacity="0.45" transform="rotate(22 14 14)"/></svg>
+      </div>
+      <div className="absolute bottom-20 left-[40%] pointer-events-none hidden md:block" style={{ animation: 'floatTiny 5s ease-in-out infinite', animationDelay: '0.9s' }}>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#E56787" fillOpacity="0.6"/></svg>
+      </div>
+      <div className="absolute bottom-32 right-1/3 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 8s ease-in-out infinite', animationDelay: '2.5s' }}>
+        <svg width="34" height="20" viewBox="0 0 34 20" fill="none"><ellipse cx="17" cy="10" rx="17" ry="10" fill="#B4B534" fillOpacity="0.4" transform="rotate(-15 17 10)"/></svg>
+      </div>
+
       <div className="max-w-7xl mx-auto relative z-10">
 
         {/* Header */}

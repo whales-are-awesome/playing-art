@@ -3,11 +3,11 @@ import { useReveal } from '../hooks/useReveal';
 import Lightbox from './Lightbox';
 
 const photos = [
-  { src: '/images/479cc02c2_.jpg', alt: 'Дети рисуют большой холст на улице', rotate: '-2deg', gridArea: '1 / 1 / 3 / 2', pos: 'center 30%', speed: 0.04 },
-  { src: '/images/5f395ed5a_.jpg', alt: 'Яркая абстрактная картина', rotate: '2.5deg', gridArea: '1 / 2 / 2 / 3', pos: 'center center', speed: 0.10 },
-  { src: '/images/0100fc3a5_.jpg', alt: 'Руки ребёнка с краской', rotate: '-2deg', gridArea: '2 / 2 / 3 / 3', pos: 'center 40%', speed: 0.07 },
-  { src: '/images/25da8d595_.jpg', alt: 'Дети работают вместе в студии', rotate: '1.5deg', gridArea: '1 / 3 / 2 / 4', pos: 'center 20%', speed: 0.12 },
-  { src: '/images/0070e06f2_.jpg', alt: 'Дети рисуют акварелью на улице', rotate: '-3deg', gridArea: '2 / 3 / 3 / 4', pos: 'center 25%', speed: 0.06 },
+  { src: '/images/479cc02c2_.jpg', alt: 'Дети рисуют большой холст на улице', rotate: '-2deg', gridArea: '1 / 1 / 3 / 2', pos: 'center 30%', speed: 0.05 },
+  { src: '/images/5f395ed5a_.jpg', alt: 'Яркая абстрактная картина', rotate: '2.5deg', gridArea: '1 / 2 / 2 / 3', pos: 'center center', speed: 0.04 },
+  { src: '/images/0100fc3a5_.jpg', alt: 'Руки ребёнка с краской', rotate: '-2deg', gridArea: '2 / 2 / 3 / 3', pos: 'center 40%', speed: 0.12 },
+  { src: '/images/25da8d595_.jpg', alt: 'Дети работают вместе в студии', rotate: '1.5deg', gridArea: '1 / 3 / 2 / 4', pos: 'center 20%', speed: 0.05 },
+  { src: '/images/0070e06f2_.jpg', alt: 'Дети рисуют акварелью на улице', rotate: '-3deg', gridArea: '2 / 3 / 3 / 4', pos: 'center 25%', speed: 0.13 },
 ];
 
 function useInView(threshold = 0.1) {
@@ -87,6 +87,17 @@ export default function Gallery() {
 
   return (
     <section id="gallery" className="py-20 md:py-28 px-6 md:px-14 overflow-hidden">
+      {/* Floating shapes */}
+      <div className="absolute top-12 left-8 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 6s ease-in-out infinite', animationDelay: '0.5s' }}>
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><polygon points="13,1 15.5,9 24,9 17.5,14.5 20,22.5 13,17.5 6,22.5 8.5,14.5 2,9 10.5,9" fill="#F18C1F" fillOpacity="0.5"/></svg>
+      </div>
+      <div className="absolute bottom-16 right-10 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 8s ease-in-out infinite', animationDelay: '1.8s' }}>
+        <svg width="36" height="20" viewBox="0 0 36 20" fill="none"><ellipse cx="18" cy="10" rx="18" ry="10" fill="#E56787" fillOpacity="0.4" transform="rotate(-12 18 10)"/></svg>
+      </div>
+      <div className="absolute top-1/2 right-1/4 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 5.5s ease-in-out infinite', animationDelay: '0.9s' }}>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#B4B534" fillOpacity="0.55"/></svg>
+      </div>
+
       <div className="max-w-7xl mx-auto">
 
         <div className="mb-10 md:mb-14">

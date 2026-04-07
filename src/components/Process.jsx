@@ -82,7 +82,21 @@ export default function Process() {
   }, []);
 
   return (
-    <section id="process" className="py-24 md:py-32 px-6 md:px-14" style={{ background: '#F8F8F8' }}>
+    <section id="process" className="py-24 md:py-32 px-6 md:px-14 relative overflow-hidden" style={{ background: '#F8F8F8' }}>
+      {/* Floating shapes */}
+      <div className="absolute top-12 right-16 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 5.5s ease-in-out infinite', animationDelay: '0.3s' }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#E56787" fillOpacity="0.45"/></svg>
+      </div>
+      <div className="absolute top-1/2 left-8 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 7s ease-in-out infinite', animationDelay: '1.5s' }}>
+        <svg width="30" height="18" viewBox="0 0 30 18" fill="none"><ellipse cx="15" cy="9" rx="15" ry="9" fill="#729ACD" fillOpacity="0.4" transform="rotate(10 15 9)"/></svg>
+      </div>
+      <div className="absolute bottom-20 right-1/4 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 6.5s ease-in-out infinite', animationDelay: '2.2s' }}>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><polygon points="9,1 10.8,6.4 16.5,6.4 12,9.8 13.8,15.2 9,11.8 4.2,15.2 6,9.8 1.5,6.4 7.2,6.4" fill="#c8a800" fillOpacity="0.6"/></svg>
+      </div>
+      <div className="absolute top-16 left-1/3 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 9s ease-in-out infinite', animationDelay: '3s' }}>
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="18" height="18" rx="4" fill="#B4B534" fillOpacity="0.4" transform="rotate(30 11 11)"/></svg>
+      </div>
+
       <div className="max-w-7xl mx-auto">
 
         {/* Sticker label */}

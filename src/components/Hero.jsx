@@ -32,10 +32,10 @@ const floats = [
 
 // Per-element scroll parallax speeds (positive = stays behind, negative = races ahead)
 const ELEMENT_SPEEDS = {
-  subtitle: 0.10,
-  titleFirst: -0.06,
-  titleSecond: 0.09,
-  stickers: -0.09,
+  subtitle: 0.18,
+  titleFirst: 0.22,
+  titleSecond: 0.19,
+  stickers: 0.18,
 };
 
 export default function Hero() {
@@ -74,11 +74,10 @@ export default function Hero() {
       { ref: stickersWrapRef, speed: ELEMENT_SPEEDS.stickers },
     ];
     const onScroll = () => {
+      const scrollY = window.scrollY;
       elements.forEach(({ ref, speed }) => {
         if (!ref.current) return;
-        const rect = ref.current.getBoundingClientRect();
-        const offset = (window.innerHeight / 2 - rect.top - rect.height / 2) * speed;
-        ref.current.style.transform = `translateY(${offset}px)`;
+        ref.current.style.transform = `translateY(${scrollY * speed}px)`;
       });
     };
     window.addEventListener('scroll', onScroll, { passive: true });

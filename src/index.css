@@ -152,6 +152,24 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Party popper burst */
+@keyframes popperBurst {
+  0%   { opacity: 0; transform: scale(0) rotate(-30deg); }
+  35%  { opacity: 1; transform: scale(1.4) rotate(15deg); }
+  65%  { opacity: 1; transform: scale(1.1) rotate(-5deg); }
+  100% { opacity: 0; transform: scale(0.7) rotate(10deg); }
+}
+
+/* Achievement toast */
+@keyframes achieveIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes achieveOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(12px) scale(0.95); }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

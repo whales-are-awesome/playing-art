@@ -9,9 +9,9 @@ const items = [
 ];
 
 const photos = [
-  { src: '/images/afb547c3c_.jpg', alt: 'Дети у своей картины на выставке', pos: 'center 20%', rotate: '-2.5deg', gridArea: '1 / 1 / 3 / 2', speed: 0.06 },
-  { src: '/images/0d5cac379_.jpg', alt: 'Посетители рассматривают работы', pos: 'center 60%', rotate: '2deg', gridArea: '1 / 2 / 2 / 3', speed: 0.11 },
-  { src: '/images/5df452749_1.jpg', alt: 'Ребёнок с папой смотрит на картину', pos: 'center 42%', rotate: '-1.5deg', gridArea: '2 / 2 / 3 / 3', speed: 0.08 },
+  { src: '/images/afb547c3c_.jpg', alt: 'Дети у своей картины на выставке', pos: 'center 20%', rotate: '-2.5deg', gridArea: '1 / 1 / 3 / 2', speed: 0.05 },
+  { src: '/images/0d5cac379_.jpg', alt: 'Посетители рассматривают работы', pos: 'center 60%', rotate: '2deg', gridArea: '1 / 2 / 2 / 3', speed: 0.04 },
+  { src: '/images/5df452749_1.jpg', alt: 'Ребёнок с папой смотрит на картину', pos: 'center 42%', rotate: '-1.5deg', gridArea: '2 / 2 / 3 / 3', speed: 0.13 },
 ];
 
 export default function Exhibition() {
@@ -44,6 +44,12 @@ export default function Exhibition() {
       </div>
       <div className="absolute top-2/3 right-1/4 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 5s ease-in-out infinite', animationDelay: '0.8s' }}>
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" fill="#729ACD" fillOpacity="0.7" transform="rotate(20 9 9)"/></svg>
+      </div>
+      <div className="absolute top-10 left-1/4 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 7s ease-in-out infinite', animationDelay: '2.1s' }}>
+        <svg width="30" height="17" viewBox="0 0 30 17" fill="none"><ellipse cx="15" cy="8.5" rx="15" ry="8.5" fill="#B4B534" fillOpacity="0.45" transform="rotate(-10 15 8.5)"/></svg>
+      </div>
+      <div className="absolute bottom-12 right-12 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 5.5s ease-in-out infinite', animationDelay: '0.3s' }}>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#F18C1F" fillOpacity="0.55"/></svg>
       </div>
 
       <div style={{ maxWidth: '74rem' }} className="mx-auto relative z-10">
