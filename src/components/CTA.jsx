@@ -137,7 +137,7 @@ export default function CTA() {
               className="sticker text-xs tracking-[0.2em] uppercase absolute top-8 left-8 md:top-10 md:left-10"
               style={{ background: 'rgba(255,255,255,0.6)', color: '#1a1a1a', transform: 'rotate(-1deg)', display: 'inline-flex' }}
             >
-              До выставки
+              Дней до выставки
             </span>
 
             {/* Countdown */}
@@ -145,9 +145,6 @@ export default function CTA() {
               <div className="flex items-end justify-center gap-3 leading-none">
                 <span className="font-black text-foreground" style={{ fontSize: 'clamp(4rem, 8vw, 6rem)', lineHeight: 1 }}>
                   {days}
-                </span>
-                <span className="font-bold text-foreground opacity-60 mb-2" style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}>
-                  {days === 1 ? 'день' : days < 5 ? 'дня' : 'дней'}
                 </span>
               </div>
 
