@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 
 const photos = [
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/479cc02c2_.jpg', alt: 'Дети рисуют большой холст на улице', rotate: '-2deg', gridArea: '1 / 1 / 3 / 2', pos: 'center 30%' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/5f395ed5a_.jpg', alt: 'Яркая абстрактная картина', rotate: '2.5deg', gridArea: '1 / 2 / 2 / 3', pos: 'center center' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/0100fc3a5_.jpg', alt: 'Руки ребёнка с краской', rotate: '-2deg', gridArea: '2 / 2 / 3 / 3', pos: 'center 40%' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/25da8d595_.jpg', alt: 'Дети работают вместе в студии', rotate: '1.5deg', gridArea: '1 / 3 / 2 / 4', pos: 'center 20%' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/0070e06f2_.jpg', alt: 'Дети рисуют акварелью на улице', rotate: '-3deg', gridArea: '2 / 3 / 3 / 4', pos: 'center 25%' },
+  { src: '/images/479cc02c2_.jpg', alt: 'Дети рисуют большой холст на улице', rotate: '-2deg', gridArea: '1 / 1 / 3 / 2', pos: 'center 30%' },
+  { src: '/images/5f395ed5a_.jpg', alt: 'Яркая абстрактная картина', rotate: '2.5deg', gridArea: '1 / 2 / 2 / 3', pos: 'center center' },
+  { src: '/images/0100fc3a5_.jpg', alt: 'Руки ребёнка с краской', rotate: '-2deg', gridArea: '2 / 2 / 3 / 3', pos: 'center 40%' },
+  { src: '/images/25da8d595_.jpg', alt: 'Дети работают вместе в студии', rotate: '1.5deg', gridArea: '1 / 3 / 2 / 4', pos: 'center 20%' },
+  { src: '/images/0070e06f2_.jpg', alt: 'Дети рисуют акварелью на улице', rotate: '-3deg', gridArea: '2 / 3 / 3 / 4', pos: 'center 25%' },
 ];
 
 function useInView(threshold = 0.1) {

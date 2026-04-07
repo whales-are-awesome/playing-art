@@ -89,7 +89,7 @@ export default function About() {
                 }}
               >
                 <img
-                  src="https://media.base44.com/images/public/69c774076c93ae569fec24ce/fddb28445_.jpg"
+                  src="/images/fddb28445_.jpg"
                   alt="Дети на занятии"
                   className="w-full h-full object-cover object-[0_75%]"
                   onError={e => { e.target.style.display = 'none'; }}

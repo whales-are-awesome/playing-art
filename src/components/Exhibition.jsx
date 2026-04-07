@@ -7,9 +7,9 @@ const items = [
 ];
 
 const photos = [
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/afb547c3c_.jpg', alt: 'Дети у своей картины на выставке', pos: 'center 20%', rotate: '-2.5deg', gridArea: '1 / 1 / 3 / 2' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/0d5cac379_.jpg', alt: 'Посетители рассматривают работы', pos: 'center 60%', rotate: '2deg', gridArea: '1 / 2 / 2 / 3' },
-  { src: 'https://media.base44.com/images/public/69c774076c93ae569fec24ce/5df452749_1.jpg', alt: 'Ребёнок с папой смотрит на картину', pos: 'center 42%', rotate: '-1.5deg', gridArea: '2 / 2 / 3 / 3' },
+  { src: '/images/afb547c3c_.jpg', alt: 'Дети у своей картины на выставке', pos: 'center 20%', rotate: '-2.5deg', gridArea: '1 / 1 / 3 / 2' },
+  { src: '/images/0d5cac379_.jpg', alt: 'Посетители рассматривают работы', pos: 'center 60%', rotate: '2deg', gridArea: '1 / 2 / 2 / 3' },
+  { src: '/images/5df452749_1.jpg', alt: 'Ребёнок с папой смотрит на картину', pos: 'center 42%', rotate: '-1.5deg', gridArea: '2 / 2 / 3 / 3' },
 ];
 
 export default function Exhibition() {
