@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 import Lightbox from './Lightbox';
 
@@ -9,19 +9,44 @@ const items = [
 ];
 
 const photos = [
-  { src: '/images/afb547c3c_.jpg', alt: 'Дети у своей картины на выставке', pos: 'center 20%', rotate: '-2.5deg', gridArea: '1 / 1 / 3 / 2' },
-  { src: '/images/0d5cac379_.jpg', alt: 'Посетители рассматривают работы', pos: 'center 60%', rotate: '2deg', gridArea: '1 / 2 / 2 / 3' },
-  { src: '/images/5df452749_1.jpg', alt: 'Ребёнок с папой смотрит на картину', pos: 'center 42%', rotate: '-1.5deg', gridArea: '2 / 2 / 3 / 3' },
+  { src: '/images/afb547c3c_.jpg', alt: 'Дети у своей картины на выставке', pos: 'center 20%', rotate: '-2.5deg', gridArea: '1 / 1 / 3 / 2', speed: 0.06 },
+  { src: '/images/0d5cac379_.jpg', alt: 'Посетители рассматривают работы', pos: 'center 60%', rotate: '2deg', gridArea: '1 / 2 / 2 / 3', speed: 0.11 },
+  { src: '/images/5df452749_1.jpg', alt: 'Ребёнок с папой смотрит на картину', pos: 'center 42%', rotate: '-1.5deg', gridArea: '2 / 2 / 3 / 3', speed: 0.08 },
 ];
 
 export default function Exhibition() {
   const textRef = useReveal();
   const imgRef = useReveal();
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const photoRefs = useRef([]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      photoRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const offset = (window.innerHeight / 2 - rect.top - rect.height / 2) * photos[i].speed;
+        el.style.transform = `translateY(${offset}px)`;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
-    <section className="py-20 md:py-28 px-6 md:px-14 overflow-hidden">
-      <div style={{ maxWidth: '74rem' }} className="mx-auto">
+    <section className="py-20 md:py-28 px-6 md:px-14 overflow-hidden relative">
+      {/* Decorative shapes */}
+      <div className="absolute top-1/4 right-6 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 6s ease-in-out infinite' }}>
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><polygon points="18,2 21,13 32,13 23,20 27,31 18,24 9,31 13,20 4,13 15,13" fill="#E56787" fillOpacity="0.6"/></svg>
+      </div>
+      <div className="absolute bottom-1/3 left-4 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 8s ease-in-out infinite', animationDelay: '1.5s' }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#F5DC90" fillOpacity="0.8"/></svg>
+      </div>
+      <div className="absolute top-2/3 right-1/4 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 5s ease-in-out infinite', animationDelay: '0.8s' }}>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" fill="#729ACD" fillOpacity="0.7" transform="rotate(20 9 9)"/></svg>
+      </div>
+
+      <div style={{ maxWidth: '74rem' }} className="mx-auto relative z-10">
         <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-16 md:gap-20 items-center">
 
           {/* Polaroid photos */}
@@ -31,43 +56,51 @@ export default function Exhibition() {
               style={{ gridTemplateColumns: '1fr 1fr', gridTemplateRows: '200px 200px' }}
             >
               {photos.map((p, i) => (
-                <div
-                  key={i}
-                  onClick={() => setLightboxIndex(i)}
-                  style={{
-                    gridArea: p.gridArea,
-                    background: 'white',
-                    padding: i === 0 ? '7px 7px 22px 7px' : '6px 6px 14px 6px',
-                    boxShadow: '3px 6px 18px rgba(0,0,0,0.12)',
-                    transform: `rotate(${p.rotate})`,
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                    cursor: 'zoom-in',
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)';
-                    e.currentTarget.style.boxShadow = '6px 12px 28px rgba(0,0,0,0.16)';
-                    e.currentTarget.style.zIndex = '10';
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.transform = `rotate(${p.rotate})`;
-                    e.currentTarget.style.boxShadow = '3px 6px 18px rgba(0,0,0,0.12)';
-                    e.currentTarget.style.zIndex = 'auto';
-                  }}
-                >
-                  <img
-                    src={p.src}
-                    alt={p.alt}
-                    loading="lazy"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      minHeight: i === 0 ? '400px' : 'auto',
-                      objectFit: 'cover',
-                      objectPosition: p.pos,
-                      display: 'block',
-                    }}
-                    onError={e => { e.target.style.display = 'none'; }}
-                  />
+                <div key={i} style={{ gridArea: p.gridArea, position: 'relative' }}>
+                  {/* Parallax wrapper */}
+                  <div
+                    ref={el => photoRefs.current[i] = el}
+                    style={{ height: '100%', willChange: 'transform' }}
+                  >
+                    <div
+                      role="button"
+                      onClick={() => setLightboxIndex(i)}
+                      style={{
+                        height: '100%',
+                        background: 'white',
+                        padding: i === 0 ? '7px 7px 22px 7px' : '6px 6px 14px 6px',
+                        boxShadow: '3px 6px 18px rgba(0,0,0,0.12)',
+                        transform: `rotate(${p.rotate})`,
+                        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                        cursor: 'zoom-in',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)';
+                        e.currentTarget.style.boxShadow = '6px 12px 28px rgba(0,0,0,0.16)';
+                        e.currentTarget.style.zIndex = '10';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.transform = `rotate(${p.rotate})`;
+                        e.currentTarget.style.boxShadow = '3px 6px 18px rgba(0,0,0,0.12)';
+                        e.currentTarget.style.zIndex = 'auto';
+                      }}
+                    >
+                      <img
+                        src={p.src}
+                        alt={p.alt}
+                        loading="lazy"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          minHeight: i === 0 ? '400px' : 'auto',
+                          objectFit: 'cover',
+                          objectPosition: p.pos,
+                          display: 'block',
+                        }}
+                        onError={e => { e.target.style.display = 'none'; }}
+                      />
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

@@ -48,7 +48,26 @@ function BookingBadge() {
   );
 }
 
+function useRipple() {
+  useEffect(() => {
+    const onClick = (e) => {
+      const btn = e.target.closest('.btn-sticker');
+      if (!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple-effect';
+      ripple.style.left = `${e.clientX - rect.left}px`;
+      ripple.style.top = `${e.clientY - rect.top}px`;
+      btn.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 700);
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, []);
+}
+
 function App() {
+  useRipple();
   return (
     <div style={{ fontFamily: "'Inter', sans-serif" }}>
       <ProgressBar />

@@ -8,9 +8,11 @@ const members = [
     bio: 'Более 8 лет работаю с детьми как педагог искусства и руководитель проектов дополнительного образования, организатор детских лагерей и образовательных программ.',
     quote: 'Мне важно дать детям пространство, где они могут свободно проявляться, изобретать и раскрывать свою творческую инициативу.',
     photo: '/images/ebe3f81d4_.jpg',
-    bgColor: '#B9CFDA',
+    bgColor: 'rgba(185,207,218,0.22)',
+    ringColor: 'rgba(185,207,218,0.35)',
     dotColor: '#729ACD',
-    imgPos: '0 40%',
+    stickerBg: '#B9CFDA',
+    imgPos: '0 80%',
   },
   {
     name: 'Валерия',
@@ -18,9 +20,11 @@ const members = [
     bio: 'Художница. Соединяю арт-терапию, живую историю искусства и практику рисования. Для меня главное — зажечь в ребёнке искренний интерес, а не научить копировать.',
     quote: 'Творчество — это не про «правильно» или «красиво», а про себя, свободу и удовольствие.',
     photo: '/images/e80abfcf8_.jpg',
-    bgColor: '#F5DC90',
+    bgColor: 'rgba(245,220,144,0.20)',
+    ringColor: 'rgba(245,220,144,0.35)',
     dotColor: '#c8a800',
-    imgPos: '0 40%',
+    stickerBg: '#F5DC90',
+    imgPos: '0 70%',
   },
   {
     name: 'Ксения',
@@ -28,9 +32,11 @@ const members = [
     bio: 'Решаю все организационные вопросы, договариваюсь с партнёрами и площадками — чтобы всё прошло гладко для детей и родителей.',
     quote: 'Моя задача — чтобы все детали были на своём месте и ничто не мешало творческому процессу.',
     photo: '/images/843e77d58_.jpg',
-    bgColor: '#FFE0C8',
+    bgColor: 'rgba(255,224,200,0.20)',
+    ringColor: 'rgba(255,224,200,0.40)',
     dotColor: '#F18C1F',
-    imgPos: '0 60%',
+    stickerBg: '#FFE0C8',
+    imgPos: '0 100%',
   },
 ];
 
@@ -92,8 +98,8 @@ export default function Team() {
               style={{
                 background: member.bgColor,
                 position: 'relative',
-                outline: `6px solid ${member.bgColor}`,
-                outlineOffset: '4px',
+                outline: `4px solid ${member.ringColor}`,
+                outlineOffset: '3px',
                 transition: 'outline-color 0.5s ease, background 0.5s ease',
               }}
             >
@@ -126,7 +132,7 @@ export default function Team() {
                   <span
                     className="sticker tracking-[0.15em] uppercase"
                     style={{
-                      background: member.bgColor,
+                      background: member.stickerBg,
                       color: '#1a1a1a',
                       transform: 'rotate(1deg)',
                       display: 'inline-flex',

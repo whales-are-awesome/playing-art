@@ -21,12 +21,18 @@ export default function About() {
   const r4 = useReveal();
 
   return (
-    <section id="about" className="py-20 md:py-28 px-6 md:px-14 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section id="about" className="py-20 md:py-28 px-6 md:px-14 overflow-hidden relative">
+
+      {/* Background blobs */}
+      <div className="absolute top-0 right-0 w-72 h-72 rounded-full blur-3xl pointer-events-none opacity-50 hidden md:block"
+        style={{ background: 'rgba(229,103,135,0.18)', animation: 'floatSlow 9s ease-in-out infinite' }} />
+      <div className="absolute bottom-10 left-0 w-64 h-64 rounded-full blur-3xl pointer-events-none opacity-40 hidden md:block"
+        style={{ background: 'rgba(245,220,144,0.35)', animation: 'floatY 11s ease-in-out infinite', animationDelay: '3s' }} />
+
+      <div className="max-w-7xl mx-auto relative z-10">
 
         {/* Header */}
         <div className="mb-12 md:mb-16">
-          {/* Sticker label */}
           <div className="mb-6">
             <span
               className="sticker text-xs tracking-[0.2em] uppercase"
@@ -35,8 +41,6 @@ export default function About() {
               О программе
             </span>
           </div>
-
-          {/* Editorial heading */}
           <h2 ref={r1} className="reveal text-4xl md:text-6xl lg:text-7xl font-black leading-[1.0] tracking-tight">
             Это <span style={{ color: '#E56787' }}>больше</span>,<br />
               чем
@@ -48,24 +52,16 @@ export default function About() {
           {/* Left: text */}
           <div ref={r2} className="reveal">
             <div className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed mb-10">
-              <p>
-                Мы учим детей не просто повторять картинку. На занятиях дети обсуждают идеи, задают вопросы и ищут собственные решения.
-              </p>
-              <p>
-                Через знакомство с современным искусством ребёнок учится смотреть на мир по-новому и смело выражать свои мысли.
-              </p>
+              <p>Мы учим детей не просто повторять картинку. На занятиях дети обсуждают идеи, задают вопросы и ищут собственные решения.</p>
+              <p>Через знакомство с современным искусством ребёнок учится смотреть на мир по-новому и смело выражать свои мысли.</p>
             </div>
-
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-5">
               На интенсиве дети:
             </p>
             <div className="space-y-3">
               {listItems.map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <span
-                    className="mt-[6px] w-2.5 h-2.5 rounded-full shrink-0"
-                    style={{ background: item.color }}
-                  />
+                  <span className="mt-[6px] w-2.5 h-2.5 rounded-full shrink-0" style={{ background: item.color }} />
                   <span className="text-base font-medium text-foreground">{item.text}</span>
                 </div>
               ))}
@@ -74,7 +70,7 @@ export default function About() {
 
           {/* Right: image + benefits */}
           <div>
-            {/* Tilted image */}
+            {/* Tilted image with parallax */}
             <div
               ref={r3}
               className="reveal mb-8"
@@ -97,7 +93,7 @@ export default function About() {
               </div>
             </div>
 
-            {/* Scattered benefit cards */}
+            {/* Benefit cards */}
             <div ref={r4} className="reveal">
               <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-4">
                 Ребёнок получает:
@@ -116,9 +112,7 @@ export default function About() {
                     onMouseEnter={e => e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)'}
                     onMouseLeave={e => e.currentTarget.style.transform = `rotate(${b.rotate})`}
                   >
-                    <span className="text-sm font-bold" style={{ color: b.hex }}>
-                      {b.label}
-                    </span>
+                    <span className="text-sm font-bold" style={{ color: b.hex }}>{b.label}</span>
                   </div>
                 ))}
               </div>
