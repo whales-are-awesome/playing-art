@@ -154,17 +154,14 @@ export default function CTA() {
               <div className="flex items-center justify-center gap-4">
                 <div className="flex flex-col items-center">
                   <span className="font-black text-foreground" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', lineHeight: 1 }}>{pad(hours)}</span>
-                  <span className="text-[10px] font-semibold tracking-widest uppercase opacity-50 mt-0.5">ч</span>
                 </div>
-                <span className="font-black text-foreground opacity-40 mb-3" style={{ fontSize: '1.5rem' }}>:</span>
+                <span className="font-black text-foreground opacity-40" style={{ fontSize: '1.5rem' }}>:</span>
                 <div className="flex flex-col items-center">
                   <span className="font-black text-foreground" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', lineHeight: 1 }}>{pad(minutes)}</span>
-                  <span className="text-[10px] font-semibold tracking-widest uppercase opacity-50 mt-0.5">мин</span>
                 </div>
-                <span className="font-black text-foreground opacity-40 mb-3" style={{ fontSize: '1.5rem' }}>:</span>
+                <span className="font-black text-foreground opacity-40" style={{ fontSize: '1.5rem' }}>:</span>
                 <div className="flex flex-col items-center">
                   <span className="font-black text-foreground" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', lineHeight: 1 }}>{pad(seconds)}</span>
-                  <span className="text-[10px] font-semibold tracking-widest uppercase opacity-50 mt-0.5">сек</span>
                 </div>
               </div>
             </div>
