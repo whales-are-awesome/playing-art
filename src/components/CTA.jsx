@@ -16,7 +16,7 @@ export default function CTA() {
         <div ref={r1} className="reveal grid md:grid-cols-2 rounded-3xl overflow-hidden" style={{ boxShadow: '6px 8px 0px rgba(114,154,205,0.3)' }}>
 
           {/* Left — colored */}
-          <div className="flex flex-col justify-between p-10 md:p-14 relative overflow-hidden" style={{ background: '#B9CFDA' }}>
+          <div className="flex flex-col gap-10 p-10 md:p-14 relative overflow-hidden min-h-[220px]" style={{ background: '#B9CFDA' }}>
             <span
               className="sticker text-xs tracking-[0.2em] uppercase self-start"
               style={{ background: 'rgba(255,255,255,0.6)', color: '#1a1a1a', transform: 'rotate(-1deg)', display: 'inline-flex' }}
@@ -24,7 +24,7 @@ export default function CTA() {
               Присоединяйтесь
             </span>
 
-            <div className="mt-auto relative z-10">
+            <div className="relative z-10">
               <p className="text-xs font-semibold tracking-[0.2em] uppercase opacity-50 mb-2">дней творчества</p>
               <p className="font-black text-foreground" style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', lineHeight: 1 }}>
                 десять<br />дней
