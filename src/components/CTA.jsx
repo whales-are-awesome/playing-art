@@ -67,8 +67,8 @@ export default function CTA() {
           setTimeout(() => setPopperVisible(false), 1200);
           // Show achievement
           setTimeout(() => setAchievePhase('in'), 900);
-          setTimeout(() => setAchievePhase('out'), 4200);
-          setTimeout(() => setAchievePhase(null), 4900);
+          setTimeout(() => setAchievePhase('out'), 6000);
+          setTimeout(() => setAchievePhase(null), 6900);
         }
       },
       { threshold: 0.9 }
