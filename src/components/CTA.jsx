@@ -9,7 +9,7 @@ const details = [
   { label: 'Дети 7–13 лет', bg: '#B4B534', color: '#fff', rotate: '2deg' },
 ];
 
-const TARGET = new Date('2026-06-15T10:00:00');
+const TARGET = new Date('2026-06-15T00:00:00');
 
 function pad(n) {
   return String(n).padStart(2, '0');
@@ -137,7 +137,7 @@ export default function CTA() {
               className="sticker text-xs tracking-[0.2em] uppercase absolute top-8 left-8 md:top-10 md:left-10"
               style={{ background: 'rgba(255,255,255,0.6)', color: '#1a1a1a', transform: 'rotate(-1deg)', display: 'inline-flex' }}
             >
-              Дней до выставки
+              Дней до старта
             </span>
 
             {/* Countdown */}
