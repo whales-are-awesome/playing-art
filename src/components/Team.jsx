@@ -105,7 +105,7 @@ export default function Team() {
 
             {/* Photo */}
             <div
-              className="rounded-2xl overflow-hidden min-h-[280px] md:min-h-[500px]"
+              className="rounded-2xl overflow-hidden min-h-[320px] md:min-h-[500px]"
               style={{
                 background: member.bgColor,
                 position: 'relative',
