@@ -126,7 +126,7 @@ export default function CTA() {
           ref={el => { blockRef.current = el; r1.current = el; }}
           className="reveal grid md:grid-cols-2 rounded-3xl overflow-hidden"
           style={{
-            boxShadow: shadowVisible ? '6px 8px 0px rgba(114,154,205,0.35)' : '0 0 0 rgba(114,154,205,0)',
+            boxShadow: shadowVisible ? '0px 0px 0px 8px rgba(114,154,205,0.35)' : '0 0 0 rgba(114,154,205,0)',
             transition: 'box-shadow 0.8s cubic-bezier(0.22,1,0.36,1)',
           }}
         >
