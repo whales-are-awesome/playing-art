@@ -9,6 +9,7 @@ import Team from './components/Team';
 import Gallery from './components/Gallery';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
+import CustomCursor from './components/CustomCursor';
 
 function BookingBadge() {
   const [visible, setVisible] = useState(false);
@@ -63,6 +64,7 @@ function App() {
       </main>
       <Footer />
       <BookingBadge />
+      <CustomCursor />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useReveal } from '../hooks/useReveal';
 
 const members = [
@@ -10,9 +10,8 @@ const members = [
     photo: '/images/ebe3f81d4_.jpg',
     bgColor: '#B9CFDA',
     dotColor: '#729ACD',
-    imgPos: '0 60%',
+    imgPos: '0 40%',
   },
-
   {
     name: 'Валерия',
     role: 'Автор идеи и методист',
@@ -21,7 +20,7 @@ const members = [
     photo: '/images/e80abfcf8_.jpg',
     bgColor: '#F5DC90',
     dotColor: '#c8a800',
-      imgPos: '0 60%',
+    imgPos: '0 40%',
   },
   {
     name: 'Ксения',
@@ -31,7 +30,7 @@ const members = [
     photo: '/images/843e77d58_.jpg',
     bgColor: '#FFE0C8',
     dotColor: '#F18C1F',
-    imgPos: '0 80%',
+    imgPos: '0 60%',
   },
 ];
 
@@ -54,6 +53,15 @@ export default function Team() {
   const prev = () => switchTo((index - 1 + members.length) % members.length, -1);
   const next = () => switchTo((index + 1) % members.length, 1);
 
+  const touchStartX = useRef(null);
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+    touchStartX.current = null;
+  };
+
   const member = members[index];
 
   return (
@@ -72,11 +80,15 @@ export default function Team() {
 
         {/* Card */}
         <div ref={cardRef} className="reveal">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-stretch">
+          <div
+            className="grid md:grid-cols-2 gap-10 md:gap-14 items-stretch"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
 
             {/* Photo */}
             <div
-              className="rounded-2xl overflow-hidden min-h-[280px] md:min-h-[420px]"
+              className="rounded-2xl overflow-hidden min-h-[280px] md:min-h-[500px]"
               style={{
                 background: member.bgColor,
                 position: 'relative',

@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
+import Lightbox from './Lightbox';
 
 const items = [
   { text: 'первый опыт публичного признания', bg: 'rgba(114,154,205,0.15)', color: '#729ACD', rotate: '-2deg' },
@@ -15,6 +17,7 @@ const photos = [
 export default function Exhibition() {
   const textRef = useReveal();
   const imgRef = useReveal();
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   return (
     <section className="py-20 md:py-28 px-6 md:px-14 overflow-hidden">
@@ -30,6 +33,7 @@ export default function Exhibition() {
               {photos.map((p, i) => (
                 <div
                   key={i}
+                  onClick={() => setLightboxIndex(i)}
                   style={{
                     gridArea: p.gridArea,
                     background: 'white',
@@ -37,6 +41,7 @@ export default function Exhibition() {
                     boxShadow: '3px 6px 18px rgba(0,0,0,0.12)',
                     transform: `rotate(${p.rotate})`,
                     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                    cursor: 'zoom-in',
                   }}
                   onMouseEnter={e => {
                     e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)';
@@ -52,9 +57,10 @@ export default function Exhibition() {
                   <img
                     src={p.src}
                     alt={p.alt}
+                    loading="lazy"
                     style={{
                       width: '100%',
-                      height: i === 0 ? '100%' : '100%',
+                      height: '100%',
                       minHeight: i === 0 ? '400px' : 'auto',
                       objectFit: 'cover',
                       objectPosition: p.pos,
@@ -69,7 +75,6 @@ export default function Exhibition() {
 
           {/* Text */}
           <div ref={textRef} className="reveal">
-            {/* Sticker label */}
             <div className="mb-5">
               <span
                 className="sticker text-xs tracking-[0.2em] uppercase"
@@ -79,18 +84,15 @@ export default function Exhibition() {
               </span>
             </div>
 
-            {/* Editorial heading */}
             <h2 className="font-black mb-8">
               <span className="block text-3xl md:text-4xl text-foreground" style={{ lineHeight: 1, marginBottom: '-4px' }}>Настоящая</span>
               <span className="block text-5xl md:text-7xl" style={{ color: '#729ACD', lineHeight: 1 }}>выставка</span>
             </h2>
 
-            {/* Description as pull quote */}
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-10">
               Работы детей будут представлены<br />на настоящей выставке.
             </p>
 
-            {/* Items as sticker tags */}
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-4">
               Для ребёнка это:
             </p>
@@ -117,6 +119,16 @@ export default function Exhibition() {
 
         </div>
       </div>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          photos={photos}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onPrev={() => setLightboxIndex(i => (i - 1 + photos.length) % photos.length)}
+          onNext={() => setLightboxIndex(i => (i + 1) % photos.length)}
+        />
+      )}
     </section>
   );
 }

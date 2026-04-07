@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
+import Lightbox from './Lightbox';
 
 const photos = [
   { src: '/images/479cc02c2_.jpg', alt: 'Дети рисуют большой холст на улице', rotate: '-2deg', gridArea: '1 / 1 / 3 / 2', pos: 'center 30%' },
@@ -25,10 +26,11 @@ function useInView(threshold = 0.1) {
   return [ref, visible];
 }
 
-function PolaroidPhoto({ photo, index, visible, height = '100%' }) {
+function PolaroidPhoto({ photo, index, visible, height = '100%', onClick }) {
   const delay = index * 0.09;
   return (
     <div
+      onClick={onClick}
       style={{
         height: '100%',
         background: 'white',
@@ -37,6 +39,7 @@ function PolaroidPhoto({ photo, index, visible, height = '100%' }) {
         opacity: visible ? 1 : 0,
         transform: visible ? `rotate(${photo.rotate})` : `rotate(${photo.rotate}) translateY(28px)`,
         transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, box-shadow 0.3s ease`,
+        cursor: 'zoom-in',
       }}
       onMouseEnter={e => {
         e.currentTarget.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
@@ -54,10 +57,10 @@ function PolaroidPhoto({ photo, index, visible, height = '100%' }) {
       <img
         src={photo.src}
         alt={photo.alt}
+        loading="lazy"
         style={{
           width: '100%',
           height,
-          minHeight: height === '100%' ? '100%' : undefined,
           objectFit: 'cover',
           objectPosition: photo.pos,
           display: 'block',
@@ -71,6 +74,12 @@ function PolaroidPhoto({ photo, index, visible, height = '100%' }) {
 export default function Gallery() {
   const [containerRef, visible] = useInView(0.1);
   const titleRef = useReveal();
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const openLightbox = (i) => setLightboxIndex(i);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prevPhoto = () => setLightboxIndex(i => (i - 1 + photos.length) % photos.length);
+  const nextPhoto = () => setLightboxIndex(i => (i + 1) % photos.length);
 
   return (
     <section id="gallery" className="py-20 md:py-28 px-6 md:px-14 overflow-hidden">
@@ -100,7 +109,7 @@ export default function Gallery() {
           >
             {photos.map((photo, i) => (
               <div key={i} style={{ gridArea: photo.gridArea, position: 'relative' }}>
-                <PolaroidPhoto photo={photo} index={i} visible={visible} height="100%" />
+                <PolaroidPhoto photo={photo} index={i} visible={visible} height="100%" onClick={() => openLightbox(i)} />
               </div>
             ))}
           </div>
@@ -114,6 +123,7 @@ export default function Gallery() {
                   index={i}
                   visible={visible}
                   height={i === 0 ? '220px' : '150px'}
+                  onClick={() => openLightbox(i)}
                 />
               </div>
             ))}
@@ -121,6 +131,16 @@ export default function Gallery() {
         </div>
 
       </div>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          photos={photos}
+          index={lightboxIndex}
+          onClose={closeLightbox}
+          onPrev={prevPhoto}
+          onNext={nextPhoto}
+        />
+      )}
     </section>
   );
 }
