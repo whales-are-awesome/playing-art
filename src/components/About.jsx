@@ -91,7 +91,7 @@ export default function About() {
                         <img
                             src="/images/fddb28445_.jpg"
                             alt="Дети на занятии"
-                            className="w-full h-auto md:absolute md:inset-0 md:max-w-full md:max-h-full md:h-full md:object-cover object-[0_75%]"
+                            className="w-full h-auto md:absolute md:inset-0 md:max-w-full md:max-h-full md:h-full md:object-cover object-[0_99%]"
                             onError={e => { e.target.style.display = 'none'; }}
                         />
                     </div>
