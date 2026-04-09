@@ -13,10 +13,18 @@ import CustomCursor from './components/CustomCursor';
 
 function BookingBadge() {
   const [visible, setVisible] = useState(false);
+  const [nearFooter, setNearFooter] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
-      if (window.scrollY > 5) setVisible(true);
+      setVisible(window.scrollY > 100);
+      const footer = document.getElementById('contacts');
+      if (footer && window.innerWidth < 640) {
+        const rect = footer.getBoundingClientRect();
+        setNearFooter(rect.top < window.innerHeight * 0.5);
+      } else {
+        setNearFooter(false);
+      }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -24,12 +32,13 @@ function BookingBadge() {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-50"
+      className="fixed right-6 z-50"
       style={{
+        bottom: nearFooter ? '90px' : '24px',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0px)' : 'translateY(20px)',
         pointerEvents: visible ? 'auto' : 'none',
-        transition: 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1)',
+        transition: 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), bottom 0.4s cubic-bezier(0.22,1,0.36,1)',
       }}
     >
       <a

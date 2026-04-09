@@ -85,8 +85,8 @@ export default function CTA() {
         >
           <span style={{ fontSize: '1.4rem' }}>🏅</span>
           <div>
-            <p className="text-[11px] font-semibold tracking-[0.15em] uppercase opacity-50" style={{ lineHeight: 1 }}>Достижение разблокировано</p>
-            <p className="text-sm font-black text-foreground mt-0.5">Вы узнали всё об интенсиве</p>
+            <p className="text-[11px] font-semibold tracking-[0.15em] uppercase opacity-50" style={{ lineHeight: 1 }}>Достижение получено</p>
+            <p className="text-sm font-black text-foreground mt-0.5">Узнать все об интенсиве</p>
           </div>
         </div>
       )}
