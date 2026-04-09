@@ -57,10 +57,11 @@ function PolaroidPhoto({ photo, index, visible, onClick }) {
         >
             <div className="overflow-hidden">
                 <img
+                    className="h-[250px] sm:h-[400px]"
                     src={photo.src}
                     alt={photo.alt}
                     loading="lazy"
-                    style={{ width: 'auto', height: '300px', display: 'block', transform: index === 0 && 'scale(1.3)' }}
+                    style={{ display: 'block', transform: index === 0 && 'scale(1.3)' }}
                     onError={e => { e.target.style.display = 'none'; }}
                 />
             </div>
@@ -116,9 +117,9 @@ export default function Gallery() {
         </div>
 
         <div ref={containerRef}>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="grid grid-cols-2 sm:flex flex-col sm:flex-row items-center justify-between gap-4">
             {photos.map((photo, i) => (
-              <div key={i} style={{ position: 'relative' }}>
+              <div className="" key={i} style={{ position: 'relative' }}>
                 <div ref={el => photoRefs.current[i] = el} style={{ willChange: 'transform' }}>
                   <PolaroidPhoto photo={photo} index={i} visible={visible} onClick={() => setLightboxIndex(i)} />
                 </div>
