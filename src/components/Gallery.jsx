@@ -57,7 +57,7 @@ function PolaroidPhoto({ photo, index, visible, onClick }) {
         >
             <div className="overflow-hidden">
                 <img
-                    className="h-[250px] sm:h-[400px]"
+                    className="h-[210px] sm:h-[400px]"
                     src={photo.src}
                     alt={photo.alt}
                     loading="lazy"
