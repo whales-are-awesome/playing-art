@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer id="contacts" className="py-14 md:py-20 px-6 md:px-14 border-t border-border">
+    <footer id="contacts" className="py-7 md:py-20 px-6 md:px-14 border-t border-border">
       <div className="max-w-6xl mx-auto">
 
         {/* Top row */}

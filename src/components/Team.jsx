@@ -7,7 +7,7 @@ const members = [
     role: 'Организатор и педагог',
     bio: 'Более 8 лет работаю с детьми как педагог искусства и руководитель проектов дополнительного образования, организатор детских лагерей и образовательных программ.',
     quote: 'Мне важно дать детям пространство, где они могут свободно проявляться, изобретать и раскрывать свою творческую инициативу.',
-    photo: '/images/ebe3f81d4_.jpg',
+    photo: '/images/lilia.jpeg',
     bgColor: 'rgba(185,207,218,0.22)',
     ringColor: 'rgba(185,207,218,0.35)',
     dotColor: '#729ACD',
@@ -71,7 +71,7 @@ export default function Team() {
   const member = members[index];
 
   return (
-    <section id="team" className="py-12 md:py-16 px-6 md:px-14 bg-[#F8F8F8] relative overflow-hidden">
+    <section id="team" className="py-6 md:py-16 px-6 md:px-14 bg-[#F8F8F8] relative overflow-hidden">
       {/* Floating shapes */}
       <div className="absolute top-10 right-12 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 6s ease-in-out infinite', animationDelay: '0.7s' }}>
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#F5DC90" fillOpacity="0.6"/></svg>

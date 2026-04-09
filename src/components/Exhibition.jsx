@@ -9,9 +9,10 @@ const items = [
 ];
 
 const photos = [
-  { src: '/images/afb547c3c_.jpg', alt: 'Дети у своей картины на выставке', pos: 'center 20%', rotate: '-2.5deg', gridArea: '1 / 1 / 3 / 2', speed: 0.05 },
-  { src: '/images/0d5cac379_.jpg', alt: 'Посетители рассматривают работы', pos: 'center 60%', rotate: '2deg', gridArea: '1 / 2 / 2 / 3', speed: 0.04 },
-  { src: '/images/5df452749_1.jpg', alt: 'Ребёнок с папой смотрит на картину', pos: 'center 42%', rotate: '-1.5deg', gridArea: '2 / 2 / 3 / 3', speed: 0.13 },
+  { src: '/images/vistavka_1.jpeg', alt: 'Дети у своей картины на выставке', rotate: '-2.5deg', speed: 0.05, scale: 1 },
+  { src: '/images/vistavka_2.jpeg', alt: 'Посетители рассматривают работы',  rotate: '2deg',    speed: 0.04, scale: 0.94 },
+  { src: '/images/vistavka_3.jpeg', alt: 'Работы детей на выставке',         rotate: '-1.5deg', speed: 0.08, scale: 0.97, offsetY: 10 },
+  { src: '/images/vistaka_4.jpeg',  alt: 'Финальная экспозиция',             rotate: '1.5deg',  speed: 0.05, scale: 0.96 },
 ];
 
 export default function Exhibition() {
@@ -34,7 +35,7 @@ export default function Exhibition() {
   }, []);
 
   return (
-    <section className="py-20 md:py-28 px-6 md:px-14 overflow-hidden relative">
+    <section className="py-10 md:py-28 px-6 md:px-14 overflow-hidden relative">
       {/* Decorative shapes */}
       <div className="absolute top-1/4 right-6 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 6s ease-in-out infinite' }}>
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><polygon points="18,2 21,13 32,13 23,20 27,31 18,24 9,31 13,20 4,13 15,13" fill="#E56787" fillOpacity="0.6"/></svg>
@@ -57,24 +58,20 @@ export default function Exhibition() {
 
           {/* Polaroid photos */}
           <div ref={imgRef} className="reveal">
-            <div
-              className="grid gap-3"
-              style={{ gridTemplateColumns: '1fr 1fr', gridTemplateRows: '200px 200px' }}
-            >
+            <div className="grid grid-cols-2 gap-4">
               {photos.map((p, i) => (
-                <div key={i} style={{ gridArea: p.gridArea, position: 'relative' }}>
+                <div key={i} style={{ position: 'relative' }}>
                   {/* Parallax wrapper */}
                   <div
                     ref={el => photoRefs.current[i] = el}
-                    style={{ height: '100%', willChange: 'transform' }}
+                    style={{ willChange: 'transform', transform: `scale(${p.scale}) translateY(${p.offsetY ?? 0}px)` }}
                   >
                     <div
                       role="button"
                       onClick={() => setLightboxIndex(i)}
                       style={{
-                        height: '100%',
                         background: 'white',
-                        padding: i === 0 ? '7px 7px 22px 7px' : '6px 6px 14px 6px',
+                        padding: '6px 6px 20px 6px',
                         boxShadow: '3px 6px 18px rgba(0,0,0,0.12)',
                         transform: `rotate(${p.rotate})`,
                         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -97,10 +94,7 @@ export default function Exhibition() {
                         loading="lazy"
                         style={{
                           width: '100%',
-                          height: '100%',
-                          minHeight: i === 0 ? '400px' : 'auto',
-                          objectFit: 'cover',
-                          objectPosition: p.pos,
+                          height: 'auto',
                           display: 'block',
                         }}
                         onError={e => { e.target.style.display = 'none'; }}

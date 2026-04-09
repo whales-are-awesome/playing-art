@@ -81,7 +81,7 @@ export default function Process() {
   }, []);
 
   return (
-    <section id="process" className="py-24 md:py-32 px-6 md:px-14 relative overflow-hidden" style={{ background: '#F8F8F8' }}>
+    <section id="process" className="py-12 md:py-32 px-6 md:px-14 relative overflow-hidden" style={{ background: '#F8F8F8' }}>
       {/* Floating shapes */}
       <div className="absolute top-12 right-16 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 5.5s ease-in-out infinite', animationDelay: '0.3s' }}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#E56787" fillOpacity="0.45"/></svg>

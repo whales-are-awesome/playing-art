@@ -21,7 +21,7 @@ export default function About() {
   const r4 = useReveal();
 
   return (
-    <section id="about" className="py-20 md:py-28 px-6 md:px-14 overflow-hidden relative">
+    <section id="about" className="pt-5 pb-10 md:py-28 px-6 md:px-14 overflow-hidden relative">
 
       {/* Background blobs */}
       <div className="absolute top-0 right-0 w-72 h-72 rounded-full blur-3xl pointer-events-none opacity-50 hidden md:block"
@@ -62,8 +62,8 @@ export default function About() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
-          {/* Left: text */}
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-stretch">
+          {/* Left: text — задаёт высоту строки */}
           <div ref={r2} className="reveal">
             <div className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed mb-10">
               <p>Мы учим детей не просто повторять картинку. На занятиях дети обсуждают идеи, задают вопросы и ищут собственные решения.</p>
@@ -82,54 +82,48 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right: image + benefits */}
-          <div>
-            {/* Tilted image with parallax */}
+          {/* Right: картинка встраивается в высоту левой колонки */}
+          <div ref={r3} className="reveal h-full" style={{ transform: 'rotate(-1.5deg)', transformOrigin: 'center center' }}>
             <div
-              ref={r3}
-              className="reveal mb-8"
-              style={{ transform: 'rotate(-1.5deg)', transformOrigin: 'center center' }}
+              className="rounded-2xl overflow-hidden h-full relative"
+              style={{
+                boxShadow: '6px 8px 0px rgba(114,154,205,0.35)',
+                border: '3px solid rgba(114,154,205,0.3)',
+              }}
             >
-              <div
-                className="rounded-2xl overflow-hidden"
-                style={{
-                  aspectRatio: '4/3',
-                  boxShadow: '6px 8px 0px rgba(114,154,205,0.35)',
-                  border: '3px solid rgba(114,154,205,0.3)',
-                }}
-              >
-                <img
-                  src="/images/fddb28445_.jpg"
-                  alt="Дети на занятии"
-                  className="w-full h-full object-cover object-[0_75%]"
-                  onError={e => { e.target.style.display = 'none'; }}
-                />
-              </div>
+              <img
+                src="/images/fddb28445_.jpg"
+                alt="Дети на занятии"
+                className="w-full h-auto md:absolute md:inset-0 md:max-w-full md:max-h-full md:h-full md:object-cover object-[0_75%]"
+                onError={e => { e.target.style.display = 'none'; }}
+              />
             </div>
+          </div>
+        </div>
 
-            {/* Benefit cards */}
-            <div ref={r4} className="reveal">
-              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-4">
-                Ребёнок получает:
-              </p>
-              <div className="grid grid-cols-2 gap-3" style={{ padding: '8px' }}>
-                {benefits.map((b, i) => (
-                  <div
-                    key={i}
-                    className="rounded-xl px-4 py-3 border-2"
-                    style={{
-                      background: b.bg,
-                      borderColor: b.hex,
-                      transform: `rotate(${b.rotate})`,
-                      transition: 'transform 0.25s ease',
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)'}
-                    onMouseLeave={e => e.currentTarget.style.transform = `rotate(${b.rotate})`}
-                  >
-                    <span className="text-sm font-bold" style={{ color: b.hex }}>{b.label}</span>
-                  </div>
-                ))}
-              </div>
+        {/* Benefit cards — below, pushed right */}
+        <div ref={r4} className="reveal mt-10 md:mt-14 flex justify-end">
+          <div className="w-full md:w-1/2">
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-4">
+              Ребёнок получает:
+            </p>
+            <div className="grid grid-cols-2 gap-3" style={{ padding: '8px' }}>
+              {benefits.map((b, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl px-4 py-3 border-2"
+                  style={{
+                    background: b.bg,
+                    borderColor: b.hex,
+                    transform: `rotate(${b.rotate})`,
+                    transition: 'transform 0.25s ease',
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = `rotate(${b.rotate})`}
+                >
+                  <span className="text-sm font-bold" style={{ color: b.hex }}>{b.label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

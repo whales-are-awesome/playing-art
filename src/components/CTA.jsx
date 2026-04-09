@@ -50,7 +50,7 @@ export default function CTA() {
   }, []);
 
   return (
-    <section id="pricing" className="py-20 md:py-28 px-6 md:px-14 overflow-hidden relative">
+    <section id="pricing" className="py-10 md:py-28 px-6 md:px-14 overflow-hidden relative">
       {/* Floating shapes */}
       <div className="absolute top-8 left-12 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 6s ease-in-out infinite', animationDelay: '0.4s' }}>
         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#F5DC90" fillOpacity="0.6"/></svg>

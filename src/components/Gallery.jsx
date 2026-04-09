@@ -3,11 +3,10 @@ import { useReveal } from '../hooks/useReveal';
 import Lightbox from './Lightbox';
 
 const photos = [
-  { src: '/images/479cc02c2_.jpg', alt: 'Дети рисуют большой холст на улице', rotate: '-2deg', gridArea: '1 / 1 / 3 / 2', pos: 'center 30%', speed: 0.05 },
-  { src: '/images/5f395ed5a_.jpg', alt: 'Яркая абстрактная картина', rotate: '2.5deg', gridArea: '1 / 2 / 2 / 3', pos: 'center center', speed: 0.04 },
-  { src: '/images/0100fc3a5_.jpg', alt: 'Руки ребёнка с краской', rotate: '-2deg', gridArea: '2 / 2 / 3 / 3', pos: 'center 40%', speed: 0.12 },
-  { src: '/images/25da8d595_.jpg', alt: 'Дети работают вместе в студии', rotate: '1.5deg', gridArea: '1 / 3 / 2 / 4', pos: 'center 20%', speed: 0.05 },
-  { src: '/images/0070e06f2_.jpg', alt: 'Дети рисуют акварелью на улице', rotate: '-3deg', gridArea: '2 / 3 / 3 / 4', pos: 'center 25%', speed: 0.13 },
+  { src: '/images/kak_bilo_1.jpg',  alt: 'Дети рисуют', rotate: '-2deg',  gridArea: '1 / 1 / 3 / 2', pos: 'center 30%',  speed: 0.05 },
+  { src: '/images/kak_bilo_2.jpeg', alt: 'Занятие в студии', rotate: '2.5deg',  gridArea: '1 / 2 / 2 / 3', pos: 'center center', speed: 0.04 },
+  { src: '/images/kak_bilo_3.jpeg', alt: 'Творческий процесс', rotate: '-2deg',  gridArea: '2 / 2 / 3 / 3', pos: 'center 40%',  speed: 0.12 },
+  { src: '/images/kak_bilo_4.jpeg', alt: 'Дети на интенсиве', rotate: '-1.5deg', gridArea: '1 / 3 / 3 / 4', pos: 'center 25%',  speed: 0.08 },
 ];
 
 function useInView(threshold = 0.1) {
@@ -86,7 +85,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section id="gallery" className="py-20 md:py-28 px-6 md:px-14 overflow-hidden">
+    <section id="gallery" className="py-10 md:py-28 px-6 md:px-14 overflow-hidden">
       {/* Floating shapes */}
       <div className="absolute top-12 left-8 pointer-events-none hidden md:block" style={{ animation: 'floatTiny 6s ease-in-out infinite', animationDelay: '0.5s' }}>
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><polygon points="13,1 15.5,9 24,9 17.5,14.5 20,22.5 13,17.5 6,22.5 8.5,14.5 2,9 10.5,9" fill="#F18C1F" fillOpacity="0.5"/></svg>
