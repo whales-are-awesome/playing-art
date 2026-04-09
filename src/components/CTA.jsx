@@ -9,38 +9,13 @@ const details = [
   { label: 'Дети 7–13 лет', bg: '#B4B534', color: '#fff', rotate: '2deg' },
 ];
 
-const TARGET = new Date('2026-06-15T00:00:00');
-
-function pad(n) {
-  return String(n).padStart(2, '0');
-}
-
-function useCountdown() {
-  const calc = () => {
-    const diff = TARGET - Date.now();
-    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    const days = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const minutes = Math.floor((diff % 3600000) / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-    return { days, hours, minutes, seconds };
-  };
-  const [time, setTime] = useState(calc);
-  useEffect(() => {
-    const id = setInterval(() => setTime(calc()), 1000);
-    return () => clearInterval(id);
-  }, []);
-  return time;
-}
-
 export default function CTA() {
   const r1 = useReveal();
-  const { days, hours, minutes, seconds } = useCountdown();
   const blockRef = useRef(null);
   const fired = useRef(false);
   const [shadowVisible, setShadowVisible] = useState(false);
   const [popperVisible, setPopperVisible] = useState(false);
-  const [achievePhase, setAchievePhase] = useState(null); // null | 'in' | 'out'
+  const [achievePhase, setAchievePhase] = useState(null);
 
   useEffect(() => {
     const el = blockRef.current;
@@ -52,7 +27,6 @@ export default function CTA() {
           obs.disconnect();
           setShadowVisible(true);
           setPopperVisible(true);
-          // Fire confetti from bottom-left after emoji pops
           setTimeout(() => {
             confetti({
               particleCount: 90,
@@ -63,9 +37,7 @@ export default function CTA() {
               scalar: 1.0,
             });
           }, 350);
-          // Hide emoji
           setTimeout(() => setPopperVisible(false), 1200);
-          // Show achievement
           setTimeout(() => setAchievePhase('in'), 900);
           setTimeout(() => setAchievePhase('out'), 6000);
           setTimeout(() => setAchievePhase(null), 6900);
@@ -90,12 +62,10 @@ export default function CTA() {
         <svg width="26" height="15" viewBox="0 0 26 15" fill="none"><ellipse cx="13" cy="7.5" rx="13" ry="7.5" fill="#729ACD" fillOpacity="0.4" transform="rotate(8 13 7.5)"/></svg>
       </div>
 
-      {/* Party popper emoji */}
+      {/* Party popper */}
       {popperVisible && (
-        <div
-          className="fixed bottom-8 left-8 z-[60] pointer-events-none select-none"
-          style={{ fontSize: '3rem', animation: 'popperBurst 1.2s cubic-bezier(0.22,1,0.36,1) forwards' }}
-        >
+        <div className="fixed bottom-8 left-8 z-[60] pointer-events-none select-none"
+          style={{ fontSize: '3rem', animation: 'popperBurst 1.2s cubic-bezier(0.22,1,0.36,1) forwards' }}>
           🎉
         </div>
       )}
@@ -126,48 +96,73 @@ export default function CTA() {
           ref={el => { blockRef.current = el; r1.current = el; }}
           className="reveal grid md:grid-cols-2 rounded-3xl overflow-hidden"
           style={{
-            boxShadow: shadowVisible ? '0px 0px 0px 8px rgba(114,154,205,0.35)' : '0 0 0 rgba(114,154,205,0)',
+            boxShadow: shadowVisible ? '6px 8px 0px rgba(114,154,205,0.35)' : '0 0 0 rgba(114,154,205,0)',
             transition: 'box-shadow 0.8s cubic-bezier(0.22,1,0.36,1)',
           }}
         >
 
-          {/* Left — colored */}
-          <div className="flex flex-col gap-8 p-10 pt-24 pb-14 md:p-14 relative overflow-hidden min-h-[220px] justify-center items-center text-center" style={{ background: '#B9CFDA' }}>
+          {/* Left — pricing */}
+          <div className="flex flex-col justify-between p-10 md:p-14 relative overflow-hidden" style={{ background: '#B9CFDA' }}>
             <span
-              className="sticker text-xs tracking-[0.2em] uppercase absolute top-8 left-8 md:top-10 md:left-10"
+              className="sticker text-xs tracking-[0.2em] uppercase self-start"
               style={{ background: 'rgba(255,255,255,0.6)', color: '#1a1a1a', transform: 'rotate(-1deg)', display: 'inline-flex' }}
             >
-              Дней до старта
+              Стоимость
             </span>
 
-            {/* Countdown */}
-            <div className="relative z-10 flex flex-col gap-3">
-              <div className="flex items-end justify-center gap-3 leading-none">
-                <span className="font-black text-foreground" style={{ fontSize: 'clamp(4rem, 8vw, 6rem)', lineHeight: 1 }}>
-                  {days}
+            {/* Prices */}
+            <div className="flex flex-col gap-6 my-8 relative z-10">
+
+              {/* Full intensive */}
+              <div
+                className="rounded-2xl p-5 relative"
+                style={{ background: 'rgba(255,255,255,0.55)', border: '2px solid rgba(255,255,255,0.8)', transform: 'rotate(-1deg)' }}
+              >
+                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase opacity-60 mb-2">Весь интенсив · 10 дней</p>
+                <div className="flex items-baseline gap-3 flex-wrap">
+                  <span
+                    className="font-black text-foreground"
+                    style={{ fontSize: 'clamp(1.9rem, 4vw, 2.8rem)', lineHeight: 1 }}
+                  >
+                    100 000 ֏
+                  </span>
+                  <span
+                    className="font-bold opacity-40 line-through"
+                    style={{ fontSize: 'clamp(1rem, 2vw, 1.3rem)' }}
+                  >
+                    120 000 ֏
+                  </span>
+                </div>
+                {/* Sale badge */}
+                <span
+                  className="absolute -top-3 -right-2 sticker text-[10px] tracking-[0.1em] uppercase"
+                  style={{ background: '#E56787', color: '#fff', transform: 'rotate(3deg)', padding: '4px 10px' }}
+                >
+                  −17%
                 </span>
               </div>
 
-              <div className="flex items-center justify-center gap-4">
-                <div className="flex flex-col items-center">
-                  <span className="font-black text-foreground" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', lineHeight: 1 }}>{pad(hours)}</span>
-                </div>
-                <span className="font-black text-foreground opacity-40" style={{ fontSize: '1.5rem' }}>:</span>
-                <div className="flex flex-col items-center">
-                  <span className="font-black text-foreground" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', lineHeight: 1 }}>{pad(minutes)}</span>
-                </div>
-                <span className="font-black text-foreground opacity-40" style={{ fontSize: '1.5rem' }}>:</span>
-                <div className="flex flex-col items-center">
-                  <span className="font-black text-foreground" style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', lineHeight: 1 }}>{pad(seconds)}</span>
-                </div>
+              {/* One week */}
+              <div
+                className="rounded-2xl p-5"
+                style={{ background: 'rgba(255,255,255,0.35)', border: '2px solid rgba(255,255,255,0.6)', transform: 'rotate(1deg)' }}
+              >
+                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase opacity-60 mb-2">Одна неделя · 5 дней</p>
+                <span
+                  className="font-black text-foreground"
+                  style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', lineHeight: 1 }}
+                >
+                  63 000 ֏
+                </span>
               </div>
             </div>
 
+            {/* Decorative */}
             <span
               className="absolute right-0 bottom-0 font-black leading-none select-none pointer-events-none"
-              style={{ fontSize: 'clamp(120px, 18vw, 180px)', color: 'rgba(255,255,255,0.25)', lineHeight: 1, transform: 'translate(10%, 10%)' }}
+              style={{ fontSize: 'clamp(90px, 14vw, 140px)', color: 'rgba(255,255,255,0.2)', lineHeight: 1, transform: 'translate(8%, 12%)' }}
             >
-              {days}
+              ֏
             </span>
           </div>
 
@@ -175,7 +170,7 @@ export default function CTA() {
           <div className="flex flex-col justify-between p-10 md:p-14 bg-white">
             <div>
               <h2 className="font-black mb-8" style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
-                Забронируйте<br />
+                Забронируй<br />
                 <span style={{ color: '#729ACD' }}>место</span>
               </h2>
 
