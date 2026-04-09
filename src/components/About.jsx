@@ -55,51 +55,49 @@ export default function About() {
               О программе
             </span>
           </div>
-          <h2 ref={r1} className="reveal text-4xl md:text-6xl lg:text-7xl font-black leading-[1.0] tracking-tight">
-            Это <span style={{ color: '#E56787' }}>больше</span>,<br />
-              чем
-            {' '}кружок рисования
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-stretch">
-          {/* Left: text — задаёт высоту строки */}
-          <div ref={r2} className="reveal">
-            <div className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed mb-10">
-              <p>Мы учим детей не просто повторять картинку. На занятиях дети обсуждают идеи, задают вопросы и ищут собственные решения.</p>
-              <p>Через знакомство с современным искусством ребёнок учится смотреть на мир по-новому и смело выражать свои мысли.</p>
-            </div>
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-5">
-              На интенсиве дети:
-            </p>
-            <div className="space-y-3">
-              {listItems.map((item, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <span className="mt-[6px] w-2.5 h-2.5 rounded-full shrink-0" style={{ background: item.color }} />
-                  <span className="text-base font-medium text-foreground">{item.text}</span>
+            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-stretch">
+                <div>
+                    <h2 ref={r1} className="reveal text-4xl md:text-6xl lg:text-7xl font-black leading-[1.0] tracking-tight mb-6 sm:mb-12">
+                        Это <span style={{ color: '#E56787' }}>больше</span>,<br />
+                        чем
+                        {' '}кружок рисования
+                    </h2>
+                    <div ref={r2} className="reveal">
+                        <div className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed mb-10">
+                            <p>Мы учим детей не просто повторять картинку. На занятиях дети обсуждают идеи, задают вопросы и ищут собственные решения.</p>
+                            <p>Через знакомство с современным искусством ребёнок учится смотреть на мир по-новому и смело выражать свои мысли.</p>
+                        </div>
+                        <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-5">
+                            На интенсиве дети:
+                        </p>
+                        <div className="space-y-3">
+                            {listItems.map((item, i) => (
+                                <div key={i} className="flex items-start gap-3">
+                                    <span className="mt-[6px] w-2.5 h-2.5 rounded-full shrink-0" style={{ background: item.color }} />
+                                    <span className="text-base font-medium text-foreground">{item.text}</span>
+                                </div>
+                            ))}
+                        </div>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
+                <div ref={r3} className="reveal h-full" style={{ transform: 'rotate(-1.5deg)', transformOrigin: 'center center' }}>
+                    <div
+                        className="rounded-2xl overflow-hidden h-full relative"
+                        style={{
+                            boxShadow: '6px 8px 0px rgba(114,154,205,0.35)',
+                            border: '3px solid rgba(114,154,205,0.3)',
+                        }}
+                    >
+                        <img
+                            src="/images/fddb28445_.jpg"
+                            alt="Дети на занятии"
+                            className="w-full h-auto md:absolute md:inset-0 md:max-w-full md:max-h-full md:h-full md:object-cover object-[0_75%]"
+                            onError={e => { e.target.style.display = 'none'; }}
+                        />
+                    </div>
+                </div>
 
-          {/* Right: картинка встраивается в высоту левой колонки */}
-          <div ref={r3} className="reveal h-full" style={{ transform: 'rotate(-1.5deg)', transformOrigin: 'center center' }}>
-            <div
-              className="rounded-2xl overflow-hidden h-full relative"
-              style={{
-                boxShadow: '6px 8px 0px rgba(114,154,205,0.35)',
-                border: '3px solid rgba(114,154,205,0.3)',
-              }}
-            >
-              <img
-                src="/images/fddb28445_.jpg"
-                alt="Дети на занятии"
-                className="w-full h-auto md:absolute md:inset-0 md:max-w-full md:max-h-full md:h-full md:object-cover object-[0_75%]"
-                onError={e => { e.target.style.display = 'none'; }}
-              />
-            </div>
-          </div>
-        </div>
+            </div></div>
 
         {/* Benefit cards — below, pushed right */}
         <div ref={r4} className="reveal mt-10 md:mt-14 flex justify-end">

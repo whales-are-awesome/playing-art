@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import confetti from 'canvas-confetti';
-import { useReveal } from '../hooks/useReveal';
 
 const details = [
   { label: '15–26 июня', bg: '#B9CFDA', color: '#1a1a1a', rotate: '-1.5deg' },
@@ -10,43 +8,40 @@ const details = [
 ];
 
 export default function CTA() {
-  const r1 = useReveal();
   const blockRef = useRef(null);
   const fired = useRef(false);
   const [shadowVisible, setShadowVisible] = useState(false);
-  const [popperVisible, setPopperVisible] = useState(false);
-  const [achievePhase, setAchievePhase] = useState(null);
 
   useEffect(() => {
     const el = blockRef.current;
     if (!el) return;
-    const obs = new IntersectionObserver(
+
+    const revealObs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('visible');
+          revealObs.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    revealObs.observe(el);
+
+    const rewardThreshold = window.innerWidth < 640 ? 0.5 : 0.9;
+    const rewardObs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !fired.current) {
           fired.current = true;
-          obs.disconnect();
+          rewardObs.disconnect();
           setShadowVisible(true);
-          setPopperVisible(true);
-          setTimeout(() => {
-            confetti({
-              particleCount: 90,
-              spread: 55,
-              angle: 55,
-              origin: { x: 0.05, y: 0.95 },
-              colors: ['#729ACD', '#E56787', '#F18C1F', '#B4B534', '#F5DC90'],
-              scalar: 1.0,
-            });
-          }, 350);
-          setTimeout(() => setPopperVisible(false), 1200);
-          setTimeout(() => setAchievePhase('in'), 900);
-          setTimeout(() => setAchievePhase('out'), 6000);
-          setTimeout(() => setAchievePhase(null), 6900);
+          window.dispatchEvent(new CustomEvent('ctaVisible'));
         }
       },
-      { threshold: 0.9 }
+      { threshold: rewardThreshold }
     );
-    obs.observe(el);
-    return () => obs.disconnect();
+    rewardObs.observe(el);
+
+    return () => { revealObs.disconnect(); rewardObs.disconnect(); };
   }, []);
 
   return (
@@ -62,38 +57,9 @@ export default function CTA() {
         <svg width="26" height="15" viewBox="0 0 26 15" fill="none"><ellipse cx="13" cy="7.5" rx="13" ry="7.5" fill="#729ACD" fillOpacity="0.4" transform="rotate(8 13 7.5)"/></svg>
       </div>
 
-      {/* Party popper */}
-      {popperVisible && (
-        <div className="fixed bottom-8 left-8 z-[60] pointer-events-none select-none"
-          style={{ fontSize: '3rem', animation: 'popperBurst 1.2s cubic-bezier(0.22,1,0.36,1) forwards' }}>
-          🎉
-        </div>
-      )}
-
-      {/* Achievement toast */}
-      {achievePhase && (
-        <div
-          className="fixed bottom-8 left-8 z-[59] pointer-events-none select-none flex items-center gap-3 rounded-2xl px-5 py-3.5"
-          style={{
-            background: 'white',
-            boxShadow: '3px 4px 0px rgba(114,154,205,0.3)',
-            border: '2px solid rgba(114,154,205,0.25)',
-            animation: achievePhase === 'in'
-              ? 'achieveIn 0.5s cubic-bezier(0.22,1,0.36,1) forwards'
-              : 'achieveOut 0.6s ease forwards',
-          }}
-        >
-          <span style={{ fontSize: '1.4rem' }}>🏅</span>
-          <div>
-            <p className="text-[11px] font-semibold tracking-[0.15em] uppercase opacity-50" style={{ lineHeight: 1 }}>Достижение получено</p>
-            <p className="text-sm font-black text-foreground mt-0.5">Узнать все об интенсиве</p>
-          </div>
-        </div>
-      )}
-
       <div className="max-w-6xl mx-auto">
         <div
-          ref={el => { blockRef.current = el; r1.current = el; }}
+          ref={blockRef}
           className="reveal grid md:grid-cols-2 rounded-3xl overflow-hidden"
           style={{
             boxShadow: shadowVisible ? '6px 8px 0px rgba(114,154,205,0.35)' : '0 0 0 rgba(114,154,205,0)',

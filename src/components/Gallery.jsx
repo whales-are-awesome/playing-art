@@ -3,10 +3,10 @@ import { useReveal } from '../hooks/useReveal';
 import Lightbox from './Lightbox';
 
 const photos = [
-  { src: '/images/kak_bilo_1.jpg',  alt: 'Дети рисуют', rotate: '-2deg',  gridArea: '1 / 1 / 3 / 2', pos: 'center 30%',  speed: 0.05 },
-  { src: '/images/kak_bilo_2.jpeg', alt: 'Занятие в студии', rotate: '2.5deg',  gridArea: '1 / 2 / 2 / 3', pos: 'center center', speed: 0.04 },
-  { src: '/images/kak_bilo_3.jpeg', alt: 'Творческий процесс', rotate: '-2deg',  gridArea: '2 / 2 / 3 / 3', pos: 'center 40%',  speed: 0.12 },
-  { src: '/images/kak_bilo_4.jpeg', alt: 'Дети на интенсиве', rotate: '-1.5deg', gridArea: '1 / 3 / 3 / 4', pos: 'center 25%',  speed: 0.08 },
+  { src: '/images/kak_bilo_1.jpg',  alt: 'Дети рисуют',        rotate: '-2deg',  speed: 0.04 },
+  { src: '/images/kak_bilo_2.jpeg', alt: 'Занятие в студии',   rotate: '2.5deg', speed: 0.05 },
+  { src: '/images/kak_bilo_3.jpeg', alt: 'Творческий процесс', rotate: '-1.5deg', speed: 0.10 },
+  { src: '/images/kak_bilo_4.jpeg', alt: 'Дети на интенсиве',  rotate: '1.5deg', speed: 0.08 },
 ];
 
 function useInView(threshold = 0.1) {
@@ -25,42 +25,46 @@ function useInView(threshold = 0.1) {
   return [ref, visible];
 }
 
-function PolaroidPhoto({ photo, index, visible, height = '100%', onClick }) {
+function PolaroidPhoto({ photo, index, visible, onClick }) {
   const delay = index * 0.09;
   return (
-    <div
-      role="button"
-      onClick={onClick}
-      style={{
-        height: '100%',
-        background: 'white',
-        padding: index === 0 ? '7px 7px 24px 7px' : '6px 6px 20px 6px',
-        boxShadow: '3px 6px 18px rgba(0,0,0,0.11)',
-        opacity: visible ? 1 : 0,
-        transform: visible ? `rotate(${photo.rotate})` : `rotate(${photo.rotate}) translateY(28px)`,
-        transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, box-shadow 0.3s ease`,
-        cursor: 'zoom-in',
-      }}
-      onMouseEnter={e => {
-        e.currentTarget.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
-        e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)';
-        e.currentTarget.style.boxShadow = '6px 14px 30px rgba(0,0,0,0.15)';
-        e.currentTarget.style.zIndex = '10';
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
-        e.currentTarget.style.transform = `rotate(${photo.rotate})`;
-        e.currentTarget.style.boxShadow = '3px 6px 18px rgba(0,0,0,0.11)';
-        e.currentTarget.style.zIndex = 'auto';
-      }}
-    >
-      <img
-        src={photo.src}
-        alt={photo.alt}
-        loading="lazy"
-        style={{ width: '100%', height, objectFit: 'cover', objectPosition: photo.pos, display: 'block' }}
-        onError={e => { e.target.style.display = 'none'; }}
-      />
+    <div>
+        <div
+            role="button"
+            onClick={onClick}
+            style={{
+                display: 'inline-block',
+                background: 'white',
+                padding: '6px 6px 20px 6px',
+                boxShadow: '3px 6px 18px rgba(0,0,0,0.11)',
+                opacity: visible ? 1 : 0,
+                transform: visible ? `rotate(${photo.rotate})` : `rotate(${photo.rotate}) translateY(28px)`,
+                transition: `opacity 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.6s cubic-bezier(0.22,1,0.36,1) ${delay}s, box-shadow 0.3s ease`,
+                cursor: 'zoom-in',
+            }}
+            onMouseEnter={e => {
+                e.currentTarget.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+                e.currentTarget.style.transform = 'rotate(0deg) scale(1.03)';
+                e.currentTarget.style.boxShadow = '6px 14px 30px rgba(0,0,0,0.15)';
+                e.currentTarget.style.zIndex = '10';
+            }}
+            onMouseLeave={e => {
+                e.currentTarget.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+                e.currentTarget.style.transform = `rotate(${photo.rotate})`;
+                e.currentTarget.style.boxShadow = '3px 6px 18px rgba(0,0,0,0.11)';
+                e.currentTarget.style.zIndex = 'auto';
+            }}
+        >
+            <div className="overflow-hidden">
+                <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    loading="lazy"
+                    style={{ width: 'auto', height: '300px', display: 'block', transform: index === 0 && 'scale(1.3)' }}
+                    onError={e => { e.target.style.display = 'none'; }}
+                />
+            </div>
+        </div>
     </div>
   );
 }
@@ -112,23 +116,12 @@ export default function Gallery() {
         </div>
 
         <div ref={containerRef}>
-          {/* Desktop */}
-          <div className="hidden md:grid gap-4" style={{ gridTemplateColumns: '2fr 1fr 1fr', gridTemplateRows: '240px 240px' }}>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             {photos.map((photo, i) => (
-              <div key={i} style={{ gridArea: photo.gridArea, position: 'relative' }}>
-                {/* Parallax wrapper */}
-                <div ref={el => photoRefs.current[i] = el} style={{ height: '100%', willChange: 'transform' }}>
-                  <PolaroidPhoto photo={photo} index={i} visible={visible} height="100%" onClick={() => setLightboxIndex(i)} />
+              <div key={i} style={{ position: 'relative' }}>
+                <div ref={el => photoRefs.current[i] = el} style={{ willChange: 'transform' }}>
+                  <PolaroidPhoto photo={photo} index={i} visible={visible} onClick={() => setLightboxIndex(i)} />
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile */}
-          <div className="grid md:hidden grid-cols-2 gap-3">
-            {photos.map((photo, i) => (
-              <div key={i} className={i === 0 ? 'col-span-2' : ''}>
-                <PolaroidPhoto photo={photo} index={i} visible={visible} height={i === 0 ? '220px' : '150px'} onClick={() => setLightboxIndex(i)} />
               </div>
             ))}
           </div>
