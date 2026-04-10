@@ -98,17 +98,18 @@ export default function Team() {
         {/* Card */}
         <div ref={cardRef} className="reveal">
           <div
-            className="grid md:grid-cols-2 gap-10 md:gap-14 items-stretch"
+            className="grid xl:grid-cols-2 gap-10 xl:gap-14 items-stretch"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
 
             {/* Photo */}
             <div
-              className="rounded-2xl overflow-hidden min-h-[320px] md:min-h-[500px]"
+              className="rounded-2xl overflow-hidden"
               style={{
                 background: member.bgColor,
                 position: 'relative',
+                aspectRatio: '548 / 500',
                 outline: `4px solid ${member.ringColor}`,
                 outlineOffset: '3px',
                 transition: 'outline-color 0.5s ease, background 0.5s ease',
@@ -129,7 +130,7 @@ export default function Team() {
             </div>
 
             {/* Info — outer wrapper, not animated */}
-            <div className="flex flex-col md:min-h-[442px]">
+            <div className="flex flex-col">
               {/* Animated content */}
               <div
                 style={{

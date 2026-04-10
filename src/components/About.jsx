@@ -55,7 +55,7 @@ export default function About() {
               О программе
             </span>
           </div>
-            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-stretch">
+            <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-stretch">
                 <div>
                     <h2 ref={r1} className="reveal text-4xl md:text-6xl lg:text-7xl font-black leading-[1.0] tracking-tight mb-6 sm:mb-12">
                         Это <span style={{ color: '#E56787' }}>больше</span>,<br />
@@ -91,7 +91,7 @@ export default function About() {
                         <img
                             src="/images/fddb28445_.jpg"
                             alt="Дети на занятии"
-                            className="w-full h-auto md:absolute md:inset-0 md:max-w-full md:max-h-full md:h-full md:object-cover object-[0_99%]"
+                            className="w-full h-auto xl:absolute md:inset-0 md:max-w-full md:max-h-full md:h-full md:object-cover object-[0_99%]"
                             onError={e => { e.target.style.display = 'none'; }}
                         />
                     </div>

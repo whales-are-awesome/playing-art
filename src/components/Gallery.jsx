@@ -117,7 +117,7 @@ export default function Gallery() {
         </div>
 
         <div ref={containerRef}>
-          <div className="grid grid-cols-2 sm:flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {photos.map((photo, i) => (
               <div className="" key={i} style={{ position: 'relative' }}>
                 <div ref={el => photoRefs.current[i] = el} style={{ willChange: 'transform' }}>
