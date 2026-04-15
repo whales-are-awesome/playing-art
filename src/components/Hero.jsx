@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
+import { useLang, LangSwitcher } from '../i18n/LangContext';
 
-const stickers = [
-  { label: '15–26 июня', bg: '#B9CFDA', color: '#1a1a1a', rotate: '-2deg' },
-  { label: 'Ереван', bg: '#F5DC90', color: '#1a1a1a', rotate: '1.5deg' },
-  { label: '10:00–14:00', bg: '#E56787', color: '#fff', rotate: '-1.5deg' },
-  { label: 'Дети 7–13 лет', bg: '#B4B534', color: '#fff', rotate: '2deg' },
+const stickerStyles = [
+  { bg: '#B9CFDA', color: '#1a1a1a', rotate: '-2deg' },
+  { bg: '#F5DC90', color: '#1a1a1a', rotate: '1.5deg' },
+  { bg: '#E56787', color: '#fff', rotate: '-1.5deg' },
+  { bg: '#B4B534', color: '#fff', rotate: '2deg' },
 ];
 
 const floats = [
@@ -30,7 +31,7 @@ const floats = [
   },
 ];
 
-// Per-element scroll parallax speeds (positive = stays behind, negative = races ahead)
+// Per-element scroll parallax speeds
 const ELEMENT_SPEEDS = {
   subtitle: 0.18,
   titleFirst: 0.22,
@@ -39,7 +40,9 @@ const ELEMENT_SPEEDS = {
 };
 
 export default function Hero() {
-  const word = 'Играем';
+  const { t } = useLang();
+  const stickers = t.hero.stickers.map((label, i) => ({ label, ...stickerStyles[i] }));
+
   const blob1 = useRef(null);
   const blob2 = useRef(null);
   const blob3 = useRef(null);
@@ -47,7 +50,6 @@ export default function Hero() {
   const mx = useRef(0);
   const my = useRef(0);
 
-  // Scroll parallax refs for each element
   const subtitleWrapRef = useRef(null);
   const titleFirstWrapRef = useRef(null);
   const titleSecondWrapRef = useRef(null);
@@ -107,21 +109,21 @@ export default function Hero() {
       {/* Content — mouse parallax wrapper */}
       <div ref={contentRef} className="relative z-10 max-w-4xl" style={{ willChange: 'transform' }}>
 
-        {/* Subtitle — own parallax speed */}
+        {/* Subtitle */}
         <div ref={subtitleWrapRef} style={{ willChange: 'transform' }}>
           <p
             className="text-xs md:text-sm font-semibold tracking-[0.25em] uppercase text-blue mb-8 md:mb-12"
             style={{ animation: 'fadeInUp 0.7s ease both', animationDelay: '0.1s', opacity: 0 }}
           >
-            Детский арт-интенсив
+            {t.hero.subtitle}
           </p>
         </div>
 
         <h1 className="font-inter text-[40px] sm:text-6xl md:text-8xl lg:text-9xl font-black leading-[0.9] tracking-tight text-foreground">
-          {/* "Играем" — own parallax speed */}
+          {/* First word — own parallax speed */}
           <div ref={titleFirstWrapRef} style={{ display: 'inline-block', willChange: 'transform' }}>
             <span className="inline-block overflow-hidden" style={{ verticalAlign: 'bottom' }}>
-              {word.split('').map((letter, i) => (
+              {t.hero.titleWord.split('').map((letter, i) => (
                 <span
                   key={i}
                   className="inline-block"
@@ -137,13 +139,13 @@ export default function Hero() {
             </span>
           </div>
           <br />
-          {/* "в искусство" — own parallax speed */}
+          {/* Second line — own parallax speed */}
           <div ref={titleSecondWrapRef} style={{ display: 'inline-block', willChange: 'transform' }}>
             <span
               className="text-blue inline-block whitespace-nowrap"
               style={{ animation: 'fadeInUp 0.7s ease both', animationDelay: '0.65s', opacity: 0 }}
             >
-              в искусство
+              {t.hero.titleLine2}
             </span>
           </div>
         </h1>
@@ -164,6 +166,14 @@ export default function Hero() {
               </span>
             ))}
           </div>
+
+          {/* Language switcher — mobile only */}
+          <div
+            className="mt-6 flex sm:hidden"
+            style={{ animation: 'fadeInUp 0.6s ease both', animationDelay: '1.0s', opacity: 0 }}
+          >
+            <LangSwitcher />
+          </div>
         </div>
       </div>
 
@@ -173,7 +183,7 @@ export default function Hero() {
           className="flex flex-col items-center gap-2 text-muted-foreground hover:text-blue transition-colors"
           style={{ animation: 'fadeInUp 0.6s ease 1.1s both, scrollFloat 2.8s ease-in-out 1.7s infinite' }}
         >
-          <span className="text-xs tracking-widest uppercase">подробнее</span>
+          <span className="text-xs tracking-widest uppercase">{t.hero.more}</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="6 9 12 15 18 9" />
           </svg>

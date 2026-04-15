@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
+import { LangProvider, useLang } from './i18n/LangContext';
 import Navbar from './components/Navbar';
 import ProgressBar from './components/ProgressBar';
 import Hero from './components/Hero';
@@ -12,6 +13,7 @@ import CTA from './components/CTA';
 import Footer from './components/Footer';
 
 function BookingBadge() {
+  const { t } = useLang();
   const [visible, setVisible] = useState(false);
   const [nearFooter, setNearFooter] = useState(false);
   const [btnPhase, setBtnPhase] = useState('default'); // 'default' | 'achieve' | 'done'
@@ -35,10 +37,8 @@ function BookingBadge() {
 
   useEffect(() => {
     const onCtaVisible = () => {
-      // 1. 🎉 появляется из угла кнопки
       setPopperVisible(true);
 
-      // 2. Конфетти стреляет справа чуть позже
       setTimeout(() => {
         const rect = btnRef.current?.getBoundingClientRect();
         const x = rect ? rect.left / window.innerWidth : 0.9;
@@ -53,7 +53,6 @@ function BookingBadge() {
         });
       }, 300);
 
-      // 3. Поппер исчезает, кнопка трансформируется
       setTimeout(() => setPopperVisible(false), 2900);
       setTimeout(() => setBtnPhase('achieve'), 1300);
       setTimeout(() => setBtnPhase('done'), 5000);
@@ -73,7 +72,6 @@ function BookingBadge() {
         transition: 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1), bottom 0.4s cubic-bezier(0.22,1,0.36,1)',
       }}
     >
-      {/* 🎉 из левого верхнего угла кнопки */}
       {popperVisible && (
         <div
           className="absolute pointer-events-none select-none z-10"
@@ -100,7 +98,7 @@ function BookingBadge() {
           transition: 'background 0.6s cubic-bezier(0.22,1,0.36,1), color 0.4s ease, transform 0.22s ease, box-shadow 0.22s ease',
         }}
       >
-        {/* Основной текст */}
+        {/* Main text */}
         <span
           className="flex items-center gap-2 text-sm tracking-wide"
           style={{
@@ -112,13 +110,13 @@ function BookingBadge() {
             pointerEvents: 'none',
           }}
         >
-          Забронировать место
+          {t.badge.book}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </span>
 
-        {/* Ачивка */}
+        {/* Achievement */}
         <span
           className="absolute inset-0 flex items-center gap-2 px-3"
           style={{
@@ -133,10 +131,10 @@ function BookingBadge() {
           <span style={{ fontSize: '1.3rem', lineHeight: 1, flexShrink: 0 }}>🏅</span>
           <div>
             <p style={{ fontSize: '8px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', opacity: 0.5, lineHeight: 1, marginBottom: '3px' }}>
-              Достижение получено
+              {t.badge.achievementTitle}
             </p>
             <p style={{ fontSize: '13px', fontWeight: 900, lineHeight: 1 }}>
-              Узнать всё об интенсиве
+              {t.badge.achievementText}
             </p>
           </div>
         </span>
@@ -163,7 +161,7 @@ function useRipple() {
   }, []);
 }
 
-function App() {
+function AppInner() {
   useRipple();
   return (
     <div style={{ fontFamily: "'Inter', sans-serif" }}>
@@ -184,4 +182,10 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <LangProvider>
+      <AppInner />
+    </LangProvider>
+  );
+}

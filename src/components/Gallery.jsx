@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
+import { useLang } from '../i18n/LangContext';
 import Lightbox from './Lightbox';
 
-const photos = [
-  { src: '/images/kak_bilo_1.jpg',  alt: 'Дети рисуют',        rotate: '-2deg',  speed: 0.04 },
-  { src: '/images/kak_bilo_2.jpeg', alt: 'Занятие в студии',   rotate: '2.5deg', speed: 0.05 },
-  { src: '/images/kak_bilo_3.jpeg', alt: 'Творческий процесс', rotate: '-1.5deg', speed: 0.10 },
-  { src: '/images/kak_bilo_4.jpeg', alt: 'Дети на интенсиве',  rotate: '1.5deg', speed: 0.08 },
+const photoData = [
+  { src: '/images/kak_bilo_1.jpg',  rotate: '-2deg',  speed: 0.04 },
+  { src: '/images/kak_bilo_2.jpeg', rotate: '2.5deg', speed: 0.05 },
+  { src: '/images/kak_bilo_3.jpeg', rotate: '-1.5deg', speed: 0.10 },
+  { src: '/images/kak_bilo_4.jpeg', rotate: '1.5deg', speed: 0.08 },
 ];
 
 function useInView(threshold = 0.1) {
@@ -71,6 +72,9 @@ function PolaroidPhoto({ photo, index, visible, onClick }) {
 }
 
 export default function Gallery() {
+  const { t } = useLang();
+  const photos = photoData.map((p, i) => ({ ...p, alt: t.gallery.alts[i] }));
+
   const [containerRef, visible] = useInView(0.1);
   const titleRef = useReveal();
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -107,12 +111,12 @@ export default function Gallery() {
         <div className="mb-10 md:mb-14">
           <div className="mb-5">
             <span className="sticker text-xs tracking-[0.2em] uppercase" style={{ background: '#FFE0C8', color: '#1a1a1a', transform: 'rotate(1.5deg)', display: 'inline-flex' }}>
-              Как было
+              {t.gallery.sectionLabel}
             </span>
           </div>
           <h2 ref={titleRef} className="reveal font-black">
-            <span className="block text-3xl md:text-4xl text-foreground" style={{ lineHeight: 1, marginBottom: '-4px' }}>В прошлом</span>
-            <span className="block text-5xl md:text-7xl" style={{ color: '#F18C1F', lineHeight: 1 }}>году</span>
+            <span className="block text-3xl md:text-4xl text-foreground" style={{ lineHeight: 1, marginBottom: '-4px' }}>{t.gallery.headingPre}</span>
+            <span className="block text-5xl md:text-7xl" style={{ color: '#F18C1F', lineHeight: 1 }}>{t.gallery.headingHighlight}</span>
           </h2>
         </div>
 

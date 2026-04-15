@@ -1,13 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLang } from '../i18n/LangContext';
 
-const details = [
-  { label: '15–26 июня', bg: '#B9CFDA', color: '#1a1a1a', rotate: '-1.5deg' },
-  { label: 'Ереван', bg: '#F5DC90', color: '#1a1a1a', rotate: '1deg' },
-  { label: '10:00–14:00', bg: '#E56787', color: '#fff', rotate: '-1deg' },
-  { label: 'Дети 7–13 лет', bg: '#B4B534', color: '#fff', rotate: '2deg' },
+const detailStyles = [
+  { bg: '#B9CFDA', color: '#1a1a1a', rotate: '-1.5deg' },
+  { bg: '#F5DC90', color: '#1a1a1a', rotate: '1deg' },
+  { bg: '#E56787', color: '#fff', rotate: '-1deg' },
+  { bg: '#B4B534', color: '#fff', rotate: '2deg' },
 ];
 
 export default function CTA() {
+  const { t } = useLang();
+  const details = t.cta.details.map((label, i) => ({ label, ...detailStyles[i] }));
+
   const blockRef = useRef(null);
   const fired = useRef(false);
   const [shadowVisible, setShadowVisible] = useState(false);
@@ -73,10 +77,9 @@ export default function CTA() {
               className="sticker text-xs tracking-[0.2em] uppercase self-start"
               style={{ background: 'rgba(255,255,255,0.6)', color: '#1a1a1a', transform: 'rotate(-1deg)', display: 'inline-flex' }}
             >
-              Стоимость
+              {t.cta.sectionLabel}
             </span>
 
-            {/* Prices */}
             <div className="flex flex-col gap-6 my-8 relative z-10">
 
               {/* Full intensive */}
@@ -84,7 +87,7 @@ export default function CTA() {
                 className="rounded-2xl p-5 relative"
                 style={{ background: 'rgba(255,255,255,0.55)', border: '2px solid rgba(255,255,255,0.8)', transform: 'rotate(-1deg)' }}
               >
-                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase opacity-60 mb-2">Весь интенсив · 10 дней</p>
+                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase opacity-60 mb-2">{t.cta.fullLabel}</p>
                 <div className="flex items-baseline gap-3 flex-wrap">
                   <span
                     className="font-black text-foreground"
@@ -99,7 +102,6 @@ export default function CTA() {
                     120 000 ֏
                   </span>
                 </div>
-                {/* Sale badge */}
                 <span
                   className="absolute -top-3 -right-2 sticker text-[10px] tracking-[0.1em] uppercase"
                   style={{ background: '#E56787', color: '#fff', transform: 'rotate(3deg)', padding: '4px 10px' }}
@@ -113,7 +115,7 @@ export default function CTA() {
                 className="rounded-2xl p-5"
                 style={{ background: 'rgba(255,255,255,0.35)', border: '2px solid rgba(255,255,255,0.6)', transform: 'rotate(1deg)' }}
               >
-                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase opacity-60 mb-2">Одна неделя · 5 дней</p>
+                <p className="text-[11px] font-semibold tracking-[0.18em] uppercase opacity-60 mb-2">{t.cta.weekLabel}</p>
                 <span
                   className="font-black text-foreground"
                   style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', lineHeight: 1 }}
@@ -136,8 +138,8 @@ export default function CTA() {
           <div className="flex flex-col justify-between p-10 md:p-14 bg-white">
             <div>
               <h2 className="font-black mb-8" style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', lineHeight: 1.05 }}>
-                Забронируй<br />
-                <span style={{ color: '#729ACD' }}>место</span>
+                {t.cta.headingLine1}<br />
+                <span style={{ color: '#729ACD' }}>{t.cta.headingLine2}</span>
               </h2>
 
               <div className="flex flex-wrap gap-2 mb-10">
@@ -161,12 +163,12 @@ export default function CTA() {
                 className="btn-sticker text-white px-8 py-3.5 text-sm tracking-wide"
                 style={{ background: '#729ACD' }}
               >
-                Подать заявку
+                {t.cta.apply}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </a>
-              <p className="text-xs text-muted-foreground pl-1">Ответим в течение дня</p>
+              <p className="text-xs text-muted-foreground pl-1">{t.cta.responseTime}</p>
             </div>
           </div>
 

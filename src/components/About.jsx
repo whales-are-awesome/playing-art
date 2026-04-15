@@ -1,24 +1,24 @@
 import { useReveal } from '../hooks/useReveal';
+import { useLang } from '../i18n/LangContext';
 
-const benefits = [
-  { label: 'Смелость ошибаться', hex: '#729ACD', bg: 'rgba(114,154,205,0.12)', rotate: '-2deg' },
-  { label: 'Умение придумывать', hex: '#E56787', bg: 'rgba(229,103,135,0.12)', rotate: '1.5deg' },
-  { label: 'Навык презентовать', hex: '#F18C1F', bg: 'rgba(241,140,31,0.12)', rotate: '-1.5deg' },
-  { label: 'Уверенность в идеях', hex: '#B4B534', bg: 'rgba(180,181,52,0.12)', rotate: '2deg' },
+const benefitStyles = [
+  { hex: '#729ACD', bg: 'rgba(114,154,205,0.12)', rotate: '-2deg' },
+  { hex: '#E56787', bg: 'rgba(229,103,135,0.12)', rotate: '1.5deg' },
+  { hex: '#F18C1F', bg: 'rgba(241,140,31,0.12)', rotate: '-1.5deg' },
+  { hex: '#B4B534', bg: 'rgba(180,181,52,0.12)', rotate: '2deg' },
 ];
 
-const listItems = [
-  { text: 'знакомятся с приёмами и подходами современных художников', color: '#729ACD' },
-  { text: 'развивают креативное и нестандартное мышление', color: '#E56787' },
-  { text: 'экспериментируют с разными материалами и техниками', color: '#F18C1F' },
-  { text: 'создают уникальные работы, которые отражают их взгляд на мир', color: '#B4B534' },
-];
+const listColors = ['#729ACD', '#E56787', '#F18C1F', '#B4B534'];
 
 export default function About() {
+  const { t } = useLang();
   const r1 = useReveal();
   const r2 = useReveal();
   const r3 = useReveal();
   const r4 = useReveal();
+
+  const benefits = t.about.benefits.map((label, i) => ({ label, ...benefitStyles[i] }));
+  const listItems = t.about.list.map((text, i) => ({ text, color: listColors[i] }));
 
   return (
     <section id="about" className="pt-5 pb-10 md:py-28 px-6 md:px-14 overflow-hidden relative">
@@ -45,30 +45,35 @@ export default function About() {
 
       <div className="max-w-7xl mx-auto relative z-10">
 
-        {/* Header */}
         <div className="mb-12 md:mb-16">
           <div className="mb-6">
             <span
               className="sticker text-xs tracking-[0.2em] uppercase"
               style={{ background: '#B9CFDA', color: '#1a1a1a', transform: 'rotate(-1.5deg)', display: 'inline-flex' }}
             >
-              О программе
+              {t.about.sectionLabel}
             </span>
           </div>
             <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-stretch">
                 <div>
                     <h2 ref={r1} className="reveal text-4xl md:text-6xl lg:text-7xl font-black leading-[1.0] tracking-tight mb-6 sm:mb-12">
-                        Это <span style={{ color: '#E56787' }}>больше</span>,<br />
-                        чем
-                        {' '}кружок рисования
+                        {t.about.headingPre}{' '}
+                        <span style={{ color: '#E56787' }}>{t.about.headingHighlight}</span>
+                        {t.about.headingPost}
+                        {t.about.headingPost2 && (
+                          <>
+                            <br />
+                            {t.about.headingPost2}
+                          </>
+                        )}
                     </h2>
                     <div ref={r2} className="reveal">
                         <div className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed mb-10">
-                            <p>Мы учим детей не просто повторять картинку. На занятиях дети обсуждают идеи, задают вопросы и ищут собственные решения.</p>
-                            <p>Через знакомство с современным искусством ребёнок учится смотреть на мир по-новому и смело выражать свои мысли.</p>
+                            <p>{t.about.p1}</p>
+                            <p>{t.about.p2}</p>
                         </div>
                         <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-5">
-                            На интенсиве дети:
+                            {t.about.listLabel}
                         </p>
                         <div className="space-y-3">
                             {listItems.map((item, i) => (
@@ -96,14 +101,14 @@ export default function About() {
                         />
                     </div>
                 </div>
+            </div>
+        </div>
 
-            </div></div>
-
-        {/* Benefit cards — below, pushed right */}
+        {/* Benefit cards */}
         <div ref={r4} className="reveal mt-10 md:mt-14 flex justify-end">
           <div className="w-full md:w-1/2">
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-4">
-              Ребёнок получает:
+              {t.about.benefitsLabel}
             </p>
             <div className="grid grid-cols-2 gap-3" style={{ padding: '8px' }}>
               {benefits.map((b, i) => (

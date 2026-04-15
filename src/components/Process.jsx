@@ -1,17 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLang } from '../i18n/LangContext';
 
-const steps = [
-  { num: '01', title: 'Общий сбор', desc: 'Делимся настроением и настраиваемся на творческую волну. Тепло, дружно, без спешки', color: '#729ACD', bg: 'rgba(114,154,205,0.13)', rotate: '-2deg', speed: 0.12 },
-  { num: '02', title: 'Теория', desc: 'Рассматриваем картины, ищем детали и смыслы, играем в визуальные угадайки — разговор об искусстве в диалоге', color: '#E56787', bg: 'rgba(229,103,135,0.13)', rotate: '1.5deg', speed: -0.08 },
-  { num: '03', title: 'Мастер-класс', desc: 'Пейзажи, портреты, абстракции, аппликации, инсталляции — каждый день новый формат и новые материалы', color: '#F18C1F', bg: 'rgba(241,140,31,0.13)', rotate: '-1deg', speed: 0.04 },
-  { num: '04', title: 'Активные игры', desc: 'После творческой работы выходим на улицу — расслабиться, зарядиться энергией и укрепить командный дух', color: '#B4B534', bg: 'rgba(180,181,52,0.13)', rotate: '2deg', speed: -0.11 },
+const stepStyles = [
+  { color: '#729ACD', bg: 'rgba(114,154,205,0.13)', rotate: '-2deg', speed: 0.12 },
+  { color: '#E56787', bg: 'rgba(229,103,135,0.13)', rotate: '1.5deg', speed: -0.08 },
+  { color: '#F18C1F', bg: 'rgba(241,140,31,0.13)', rotate: '-1deg', speed: 0.04 },
+  { color: '#B4B534', bg: 'rgba(180,181,52,0.13)', rotate: '2deg', speed: -0.11 },
 ];
 
-const caption = [
-  { text: '4 часа', size: 'text-5xl md:text-7xl', weight: 'font-bold', charColors: ['#F18C1F', null, '#729ACD', '#729ACD', '#729ACD', '#729ACD'] },
-  { text: 'которые меняют', size: 'text-2xl md:text-3xl', weight: 'font-medium', color: '#1a1a1a' },
-  { text: 'взгляд ребёнка на мир', size: 'text-lg md:text-2xl', weight: 'font-medium', color: '#595959' },
+const captionLineStyles = [
+  { size: 'text-5xl md:text-7xl', weight: 'font-bold' },
+  { size: 'text-2xl md:text-3xl', weight: 'font-medium', color: '#1a1a1a' },
+  { size: 'text-lg md:text-2xl', weight: 'font-medium', color: '#595959' },
 ];
+
+function getCharColor(lineIndex, charIndex, char) {
+  if (lineIndex !== 0) return captionLineStyles[lineIndex].color;
+  if (char === ' ') return null;
+  if (charIndex === 0) return '#F18C1F';
+  return '#729ACD';
+}
 
 function useInView(threshold = 0.2) {
   const ref = useRef(null);
@@ -29,18 +37,18 @@ function useInView(threshold = 0.2) {
   return [ref, visible];
 }
 
-function AnimatedCaption() {
+function AnimatedCaption({ lines }) {
   const [ref, visible] = useInView(0.3);
   let globalIndex = 0;
 
   return (
     <div ref={ref} className="mt-12 md:mt-16 text-center" style={{ lineHeight: 1.15 }}>
-      {caption.map((line, li) => (
-        <div key={li} className={`block ${line.weight} ${line.size}`}>
-          {line.text.split('').map((char, ci) => {
+      {lines.map((line, li) => (
+        <div key={li} className={`block ${captionLineStyles[li].weight} ${captionLineStyles[li].size}`}>
+          {line.split('').map((char, ci) => {
             const idx = globalIndex++;
             const delay = idx * 0.028;
-            const color = line.charColors?.[ci] ?? line.color;
+            const color = getCharColor(li, ci, char);
             return (
               <span
                 key={ci}
@@ -64,6 +72,8 @@ function AnimatedCaption() {
 }
 
 export default function Process() {
+  const { t } = useLang();
+  const steps = t.process.steps.map((s, i) => ({ ...s, ...stepStyles[i] }));
   const [containerRef, containerVisible] = useInView(0.1);
   const cardRefs = useRef([]);
 
@@ -78,7 +88,7 @@ export default function Process() {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [steps]);
 
   return (
     <section id="process" className="py-12 md:py-32 px-6 md:px-14 relative overflow-hidden" style={{ background: '#F8F8F8' }}>
@@ -98,7 +108,7 @@ export default function Process() {
             className="sticker text-xs tracking-[0.2em] uppercase"
             style={{ background: '#F5DC90', color: '#1a1a1a', transform: 'rotate(1deg)', display: 'inline-flex' }}
           >
-            Программа дня
+            {t.process.sectionLabel}
           </span>
         </div>
 
@@ -108,7 +118,6 @@ export default function Process() {
           <div className="hidden md:flex items-start gap-2">
             {steps.map((step, i) => (
               <div key={i} className="flex items-start gap-2 flex-1">
-                {/* Parallax wrapper — receives scroll translateY */}
                 <div
                   ref={el => cardRefs.current[i] = el}
                   style={{ flex: 1, willChange: 'transform' }}
@@ -198,7 +207,7 @@ export default function Process() {
           </div>
         </div>
 
-        <AnimatedCaption />
+        <AnimatedCaption lines={t.process.captionLines} />
 
       </div>
     </section>

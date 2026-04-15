@@ -1,21 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
+import { useLang } from '../i18n/LangContext';
 import Lightbox from './Lightbox';
 
-const items = [
-  { text: 'первый опыт публичного признания', bg: 'rgba(114,154,205,0.15)', color: '#729ACD', rotate: '-2deg' },
-  { text: 'развитие уверенности в себе', bg: 'rgba(229,103,135,0.15)', color: '#E56787', rotate: '1.5deg' },
-  { text: 'гордость за собственный результат', bg: 'rgba(180,181,52,0.15)', color: '#B4B534', rotate: '-1deg' },
+const itemStyles = [
+  { bg: 'rgba(114,154,205,0.15)', color: '#729ACD', rotate: '-2deg' },
+  { bg: 'rgba(229,103,135,0.15)', color: '#E56787', rotate: '1.5deg' },
+  { bg: 'rgba(180,181,52,0.15)', color: '#B4B534', rotate: '-1deg' },
 ];
 
-const photos = [
-  { src: '/images/vistavka_1.jpeg', alt: 'Дети у своей картины на выставке', rotate: '-2.5deg', speed: 0.05, scale: 1 },
-  { src: '/images/vistavka_2.jpeg', alt: 'Посетители рассматривают работы',  rotate: '2deg',    speed: 0.04, scale: 0.94 },
-  { src: '/images/vistavka_3.jpeg', alt: 'Работы детей на выставке',         rotate: '-1.5deg', speed: 0.08, scale: 0.97, offsetY: 10 },
-  { src: '/images/vistaka_4.jpeg',  alt: 'Финальная экспозиция',             rotate: '1.5deg',  speed: 0.05, scale: 0.96 },
+const photoData = [
+  { src: '/images/vistavka_1.jpeg', rotate: '-2.5deg', speed: 0.05, scale: 1 },
+  { src: '/images/vistavka_2.jpeg', rotate: '2deg',    speed: 0.04, scale: 0.94 },
+  { src: '/images/vistavka_3.jpeg', rotate: '-1.5deg', speed: 0.08, scale: 0.97, offsetY: 10 },
+  { src: '/images/vistaka_4.jpeg',  rotate: '1.5deg',  speed: 0.05, scale: 0.96 },
 ];
 
 export default function Exhibition() {
+  const { t } = useLang();
+  const items = t.exhibition.items.map((text, i) => ({ text, ...itemStyles[i] }));
+
   const textRef = useReveal();
   const imgRef = useReveal();
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -26,7 +30,7 @@ export default function Exhibition() {
       photoRefs.current.forEach((el, i) => {
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        const offset = (window.innerHeight / 2 - rect.top - rect.height / 2) * photos[i].speed;
+        const offset = (window.innerHeight / 2 - rect.top - rect.height / 2) * photoData[i].speed;
         el.style.transform = `translateY(${offset}px)`;
       });
     };
@@ -59,9 +63,8 @@ export default function Exhibition() {
           {/* Polaroid photos */}
           <div ref={imgRef} className="reveal">
             <div className="grid grid-cols-2 gap-4">
-              {photos.map((p, i) => (
+              {photoData.map((p, i) => (
                 <div key={i} style={{ position: 'relative' }}>
-                  {/* Parallax wrapper */}
                   <div
                     ref={el => photoRefs.current[i] = el}
                     style={{ willChange: 'transform', transform: `scale(${p.scale}) translateY(${p.offsetY ?? 0}px)` }}
@@ -90,13 +93,9 @@ export default function Exhibition() {
                     >
                       <img
                         src={p.src}
-                        alt={p.alt}
+                        alt=""
                         loading="lazy"
-                        style={{
-                          width: '100%',
-                          height: 'auto',
-                          display: 'block',
-                        }}
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
                         onError={e => { e.target.style.display = 'none'; }}
                       />
                     </div>
@@ -113,21 +112,23 @@ export default function Exhibition() {
                 className="sticker text-xs tracking-[0.2em] uppercase"
                 style={{ background: '#B9CFDA', color: '#1a1a1a', transform: 'rotate(-1deg)', display: 'inline-flex' }}
               >
-                Финал интенсива
+                {t.exhibition.sectionLabel}
               </span>
             </div>
 
             <h2 className="font-black mb-8">
-              <span className="block text-3xl md:text-4xl text-foreground" style={{ lineHeight: 1, marginBottom: '-4px' }}>Настоящая</span>
-              <span className="block text-5xl md:text-7xl" style={{ color: '#729ACD', lineHeight: 1 }}>выставка</span>
+              <span className="block text-3xl md:text-4xl text-foreground" style={{ lineHeight: 1, marginBottom: '-4px' }}>{t.exhibition.headingPre}</span>
+              <span className="block text-5xl md:text-7xl" style={{ color: '#729ACD', lineHeight: 1 }}>{t.exhibition.headingHighlight}</span>
             </h2>
 
             <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-10">
-              Работы детей будут представлены<br />на настоящей выставке.
+              {t.exhibition.description.split('\n').map((line, i) => (
+                <span key={i}>{line}{i < t.exhibition.description.split('\n').length - 1 && <br />}</span>
+              ))}
             </p>
 
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-4">
-              Для ребёнка это:
+              {t.exhibition.itemsLabel}
             </p>
             <div className="flex flex-col gap-2">
               {items.map((item, i) => (
@@ -155,11 +156,11 @@ export default function Exhibition() {
 
       {lightboxIndex !== null && (
         <Lightbox
-          photos={photos}
+          photos={photoData}
           index={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
-          onPrev={() => setLightboxIndex(i => (i - 1 + photos.length) % photos.length)}
-          onNext={() => setLightboxIndex(i => (i + 1) % photos.length)}
+          onPrev={() => setLightboxIndex(i => (i - 1 + photoData.length) % photoData.length)}
+          onNext={() => setLightboxIndex(i => (i + 1) % photoData.length)}
         />
       )}
     </section>

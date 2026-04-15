@@ -1,12 +1,9 @@
 import { useState, useRef } from 'react';
 import { useReveal } from '../hooks/useReveal';
+import { useLang } from '../i18n/LangContext';
 
-const members = [
+const memberStyles = [
   {
-    name: 'Лилия',
-    role: 'Организатор и педагог',
-    bio: 'Более 8 лет работаю с детьми как педагог искусства и руководитель проектов дополнительного образования, организатор детских лагерей и образовательных программ.',
-    quote: 'Мне важно дать детям пространство, где они могут свободно проявляться, изобретать и раскрывать свою творческую инициативу.',
     photo: '/images/lilia.jpeg',
     bgColor: 'rgba(185,207,218,0.22)',
     ringColor: 'rgba(185,207,218,0.35)',
@@ -15,10 +12,6 @@ const members = [
     imgPos: '0 80%',
   },
   {
-    name: 'Валерия',
-    role: 'Автор идеи и методист',
-    bio: 'Художница. Соединяю арт-терапию, живую историю искусства и практику рисования. Для меня главное — зажечь в ребёнке искренний интерес, а не научить копировать.',
-    quote: 'Творчество — это не про «правильно» или «красиво», а про себя, свободу и удовольствие.',
     photo: '/images/e80abfcf8_.jpg',
     bgColor: 'rgba(245,220,144,0.20)',
     ringColor: 'rgba(245,220,144,0.35)',
@@ -27,10 +20,6 @@ const members = [
     imgPos: '0 70%',
   },
   {
-    name: 'Ксения',
-    role: 'Координатор',
-    bio: 'Решаю все организационные вопросы, договариваюсь с партнёрами и площадками — чтобы всё прошло гладко для детей и родителей.',
-    quote: 'Моя задача — чтобы все детали были на своём месте и ничто не мешало творческому процессу.',
     photo: '/images/843e77d58_.jpg',
     bgColor: 'rgba(255,224,200,0.20)',
     ringColor: 'rgba(255,224,200,0.40)',
@@ -41,11 +30,13 @@ const members = [
 ];
 
 export default function Team() {
+  const { t } = useLang();
   const [index, setIndex] = useState(0);
   const [fading, setFading] = useState(false);
   const [dir, setDir] = useState(1);
-  const titleRef = useReveal();
   const cardRef = useReveal();
+
+  const members = t.team.members.map((m, i) => ({ ...m, ...memberStyles[i] }));
 
   const switchTo = (newIndex, direction) => {
     setDir(direction);
@@ -91,7 +82,7 @@ export default function Team() {
             className="sticker text-xs tracking-[0.2em] uppercase"
             style={{ background: '#E56787', color: '#fff', transform: 'rotate(-1deg)', display: 'inline-flex' }}
           >
-            Команда
+            {t.team.sectionLabel}
           </span>
         </div>
 
@@ -129,9 +120,8 @@ export default function Team() {
               />
             </div>
 
-            {/* Info — outer wrapper, not animated */}
+            {/* Info */}
             <div className="flex flex-col">
-              {/* Animated content */}
               <div
                 style={{
                   opacity: fading ? 0 : 1,
@@ -151,10 +141,7 @@ export default function Team() {
                       transition: 'background 0.4s ease',
                     }}
                   >
-                      <span className="text-[12px] sm:text-xs">
-                           {member.role}
-                      </span>
-
+                    <span className="text-[12px] sm:text-xs">{member.role}</span>
                   </span>
                 </div>
 
@@ -168,19 +155,17 @@ export default function Team() {
 
                 <p className="text-base text-muted-foreground leading-relaxed mb-6">{member.bio}</p>
 
-                {/* Quote — big, no border */}
                 <p className="text-lg md:text-xl font-semibold leading-snug mb-10" style={{ color: member.dotColor }}>
                   «{member.quote}»
                 </p>
               </div>
 
-              {/* Controls — separate, never animated */}
+              {/* Controls */}
               <div className="flex items-center gap-5 mt-auto">
-                <button onClick={prev} aria-label="Предыдущий" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
+                <button onClick={prev} aria-label={t.team.prev} className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6" /></svg>
                 </button>
 
-                {/* Dot indicators */}
                 <div className="flex items-center gap-2">
                   {members.map((m, i) => (
                     <button
@@ -197,7 +182,7 @@ export default function Team() {
                   ))}
                 </div>
 
-                <button onClick={next} aria-label="Следующий" className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
+                <button onClick={next} aria-label={t.team.next} className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-blue transition-colors">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
                 </button>
               </div>

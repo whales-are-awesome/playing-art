@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useLang, LangSwitcher } from '../i18n/LangContext';
 
-const links = [
-  { label: 'О программе', href: '#about', color: '#729ACD' },
-  { label: 'Наш день', href: '#process', color: '#E56787' },
-  { label: 'Как было', href: '#gallery', color: '#F18C1F' },
-  { label: 'Команда', href: '#team', color: '#B4B534' },
-  { label: 'Стоимость', href: '#pricing', color: '#F5DC90' },
-  { label: 'Контакты', href: '#contacts', color: '#729ACD' },
-];
+const linkColors = ['#729ACD', '#E56787', '#F18C1F', '#B4B534', '#F5DC90', '#729ACD'];
 
 export default function Navbar() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const links = t.nav.links.map((link, i) => ({ ...link, color: linkColors[i] }));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -36,7 +33,7 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-14 md:h-16">
           <a href="#" className="hidden md:block text-sm font-bold tracking-[0.15em] uppercase text-foreground">
-            Играем в искусство
+            {t.nav.logo}
           </a>
 
           <div className="flex items-center gap-3 w-full sm:w-auto sm:ml-auto">
@@ -47,8 +44,10 @@ export default function Navbar() {
               className="btn-sticker hidden md:inline-flex items-center px-5 py-2 text-xs tracking-widest uppercase text-white"
               style={{ background: '#729ACD' }}
             >
-              Подать заявку
+              {t.nav.apply}
             </a>
+
+            <LangSwitcher />
 
             <button
               onClick={() => setMenuOpen(true)}
