@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useLang, LangSwitcher } from '../i18n/LangContext';
+import { useLang } from '../i18n/LangContext';
 
 const stickerStyles = [
   { bg: '#B9CFDA', color: '#1a1a1a', rotate: '-2deg' },
@@ -168,12 +168,6 @@ export default function Hero() {
           </div>
 
           {/* Language switcher — mobile only */}
-          <div
-            className="mt-6 flex sm:hidden"
-            style={{ animation: 'fadeInUp 0.6s ease both', animationDelay: '1.0s', opacity: 0 }}
-          >
-            <LangSwitcher />
-          </div>
         </div>
       </div>
 

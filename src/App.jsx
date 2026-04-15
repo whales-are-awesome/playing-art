@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { LangProvider, useLang } from './i18n/LangContext';
-import Navbar from './components/Navbar';
+import Navbar, { MobileLangSwitcher } from './components/Navbar';
 import ProgressBar from './components/ProgressBar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -167,6 +167,7 @@ function AppInner() {
     <div style={{ fontFamily: "'Inter', sans-serif" }}>
       <ProgressBar />
       <Navbar />
+      <MobileLangSwitcher />
       <main>
         <Hero />
         <About />

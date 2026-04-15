@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useLang, LangSwitcher } from '../i18n/LangContext';
 
+// Fixed corner switcher — mobile only (sm:hidden)
+export function MobileLangSwitcher() {
+  return (
+    <div className="sm:hidden fixed top-3 right-4 z-50">
+      <LangSwitcher />
+    </div>
+  );
+}
+
 const linkColors = ['#729ACD', '#E56787', '#F18C1F', '#B4B534', '#F5DC90', '#729ACD'];
 
 export default function Navbar() {
