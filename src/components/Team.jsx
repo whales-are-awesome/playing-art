@@ -33,7 +33,7 @@ const memberStyles = [
     ringColor: 'rgba(190,225,200,0.40)',
     dotColor: '#4A9B6F',
     stickerBg: '#BEE1C8',
-    imgPos: '0 50%',
+    imgPos: '0 83%',
   },
 ];
 
@@ -115,6 +115,7 @@ export default function Team() {
               }}
             >
               <img
+                key={member.photo}
                 src={member.photo}
                 alt={member.name}
                 className="w-full h-full object-cover absolute inset-0"
