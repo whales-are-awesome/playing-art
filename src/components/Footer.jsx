@@ -22,18 +22,35 @@ export default function Footer() {
             </p>
           </div>
 
-          <a
-            href="https://t.me/lillilia"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-sticker text-white px-7 py-3.5 tracking-wide text-sm inline-flex self-start md:self-auto"
-            style={{ background: '#729ACD' }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="shrink-0">
-              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/>
-            </svg>
-            {t.footer.telegram}
-          </a>
+          <div className="flex items-center gap-3 self-start md:self-auto">
+            <a
+              href="https://t.me/lillilia"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-sticker text-white px-7 py-3.5 tracking-wide text-sm inline-flex"
+              style={{ background: '#729ACD' }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="shrink-0">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.97 9.289c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.932z"/>
+              </svg>
+              {t.footer.telegram}
+            </a>
+
+            <a
+              href="https://www.instagram.com/playart_kids?igsh=dWFkZWRnZjJkc2Rn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-sticker text-white p-3.5 inline-flex"
+              style={{ background: '#E56787' }}
+              aria-label="Instagram"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+          </div>
         </div>
 
         {/* Divider */}

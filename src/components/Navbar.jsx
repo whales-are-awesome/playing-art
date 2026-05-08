@@ -4,7 +4,20 @@ import { useLang, LangSwitcher } from '../i18n/LangContext';
 // Fixed corner switcher — mobile only (sm:hidden)
 export function MobileLangSwitcher() {
   return (
-    <div className="sm:hidden fixed top-3 right-4 z-50">
+    <div className="sm:hidden fixed top-3 right-4 z-50 flex items-center gap-2">
+      <a
+        href="https://www.instagram.com/playart_kids?igsh=dWFkZWRnZjJkc2Rn"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-8 h-8 flex items-center justify-center rounded-full bg-white/80 backdrop-blur text-[#E56787] hover:bg-white transition-colors"
+        aria-label="Instagram"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      </a>
       <LangSwitcher />
     </div>
   );
@@ -54,6 +67,20 @@ export default function Navbar() {
               style={{ background: '#729ACD' }}
             >
               {t.nav.apply}
+            </a>
+
+            <a
+              href="https://www.instagram.com/playart_kids?igsh=dWFkZWRnZjJkc2Rn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-softblue/30 transition-colors text-[#E56787]"
+              aria-label="Instagram"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
             </a>
 
             <LangSwitcher />
